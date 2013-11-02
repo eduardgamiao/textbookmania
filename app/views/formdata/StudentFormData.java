@@ -81,7 +81,7 @@ public class StudentFormData {
       errors.add(new ValidationError("avatarURL", "Avatar URL is required."));
     }
     if (!(this.avatarURL.endsWith(".jpg") || this.avatarURL.endsWith(".png") || this.avatarURL.endsWith(".gif"))) {
-      errors.add(new ValidationError("avatarURL", "Avatar URL is required."));
+      errors.add(new ValidationError("avatarURL", "Avatar needs to be a \".jpg\", \".png\" or \".gif\" file."));
     }
     
     return errors.isEmpty() ? null : errors;
