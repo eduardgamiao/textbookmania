@@ -2,7 +2,8 @@
 
 @Main("Students") {
    <div class="container">
-     <h2>List of Students</h2>
+     <a class="btn btn-primary btn-lg pull-right" href="@routes.Application.newStudent()">Add Student</a>
+     <h2>List of Students (@students.size())</h2>
      <table class="table table-bordered table-stripped">
       <tr>
         <th>Avatar</th>
