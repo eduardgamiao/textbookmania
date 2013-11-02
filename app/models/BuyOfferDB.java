@@ -23,6 +23,14 @@ public class BuyOfferDB {
   }
   
   /**
+   * Returns a list of BuyOffers.
+   * @return A list of BuyOffers.
+   */
+  public static List<BuyOffer> getBuyOffers() {
+    return buyOffers;
+  }
+  
+  /**
    * Check if a number is an Integer.
    * @param price Integer to check (comes in as a String).
    * @return True if the number is an Integer, false otherwise.

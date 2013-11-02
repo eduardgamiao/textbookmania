@@ -1,0 +1,23 @@
+@(buyOffers: List[BuyOffer])
+
+@Main("Buy Offers") {
+   <div class="container">
+     <h2>List of Buy Offers</h2>
+     <table class="table table-stripped">
+      <tr>
+        <th>Buyer</th>
+        <th>Textbook</th>
+        <th>Price</th>
+        <th>Expiration Date</th>
+      </tr>
+      @for(buyOffer <- buyOffers) {
+        <tr>
+          <td>@buyOffer.getStudent()</td>
+          <td>@buyOffer.getTextbook()</td>
+          <td>@buyOffer.getPrice()</td>
+          <td>@buyOffer.getExpirationDate()</td>
+        </tr>
+      }
+     </table>
+   </div>
+}

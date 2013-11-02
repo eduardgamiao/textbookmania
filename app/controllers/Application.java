@@ -3,21 +3,26 @@ package controllers;
 import java.util.List;
 import java.util.Map;
 import models.BuyOfferDB;
+import models.SellOfferDB;
 import models.StudentDB;
 import models.TextbookDB;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.formdata.BuyOfferFormData;
+import views.formdata.SellOfferFormData;
 import views.formdata.StudentFormData;
 import views.formdata.TextbookCondtion;
 import views.formdata.TextbookFormData;
 import views.html.Index;
 import views.html.ManageBuyOffer;
+import views.html.ManageSellOffer;
 import views.html.ManageStudent;
 import views.html.ManageTextbook;
 import views.html.Students;
 import views.html.Textbooks;
+import views.html.BuyOffers;
+import views.html.SellOffers;
 
 /**
  * Implements the controllers for this application.
@@ -47,6 +52,23 @@ public class Application extends Controller {
   public static Result showTextbooks() {
     return ok(Textbooks.render(TextbookDB.getTextbooks()));
   }
+  
+  /**
+   * Returns the showBuyOffers page.
+   * @return The showBuyOffers page.
+   */
+  public static Result showBuyOffers() {
+    return ok(BuyOffers.render(BuyOfferDB.getBuyOffers()));
+  }
+  
+  /**
+   * Returns the showSellOffers page.
+   * @return The showSellOffers page.
+   */
+  public static Result showSellOffers() {
+    return ok(SellOffers.render(SellOfferDB.getSellOffers()));
+  }
+  
   
   /**
    * The Student data form page.
@@ -98,6 +120,34 @@ public class Application extends Controller {
     } 
   }
   
+  /**
+   * Render form for creating a new SellOffer.
+   * @return The SellOffer data page.
+   */
+  public static Result newSellOffer() {
+    SellOfferFormData data = new SellOfferFormData();
+    Form<SellOfferFormData> formData = Form.form(SellOfferFormData.class).fill(data);
+    Map<String, Boolean> studentMap = StudentDB.getStudentNames();
+    return ok(ManageSellOffer.render("Add New Sell-Offer", formData, studentMap));
+  }
+  
+  /**
+   * Renders page after submitting form data.
+   * @return The SellOffer page.
+   */
+  public static Result postSellOffer() {
+    Form<SellOfferFormData> formData = Form.form(SellOfferFormData.class).bindFromRequest();
+    if (formData.hasErrors()) {
+      Map<String, Boolean> studentMap = StudentDB.getStudentNames();
+      return badRequest(ManageSellOffer.render("Manage Sell-Offer", formData, studentMap));
+    }
+    else {
+      SellOfferFormData form = formData.get();
+      SellOfferDB.addSellOffer(form);
+      Map<String, Boolean> studentMap = StudentDB.getStudentNames(form.student.getEmail());
+      return ok(ManageSellOffer.render("Manage Sell-Offer", formData, studentMap));
+    } 
+  }
   /**
    * Renders page after submitting form data.
    * @return The Student page.

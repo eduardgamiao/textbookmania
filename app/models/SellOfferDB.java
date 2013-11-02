@@ -25,6 +25,14 @@ public class SellOfferDB {
   }
   
   /**
+   * Returns a list of SellOffers.
+   * @return A list of SellOffers.
+   */
+  public static List<SellOffer> getSellOffers() {
+    return sellOffers;
+  }
+  
+  /**
    * Check if a number is an Integer.
    * @param price Integer to check (comes in as a String).
    * @return True if the number is an Integer, false otherwise.
