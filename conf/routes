@@ -5,7 +5,11 @@
 # Home page
 GET     /                           controllers.Application.index()
 GET     /newstudent                 controllers.Application.newStudent()
-POST    /post                       controllers.Application.postStudent()
+GET     /newtextbook                controllers.Application.newTextbook()
+GET     /students                   controllers.Application.showStudents()
+GET     /textbooks                  controllers.Application.showTextbooks()
+POST    /poststudent                controllers.Application.postStudent()
+POST    /posttextbook               controllers.Application.postTextbook()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

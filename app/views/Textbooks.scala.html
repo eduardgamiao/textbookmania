@@ -1,0 +1,23 @@
+@(textbooks: List[Textbook])
+
+@Main("Textbooks") {
+   <div class="container">
+     <h2>List of Textbooks</h2>
+     <table class="table table-stripped">
+      <tr>
+        <th>Title</th>
+        <th>Author</th>
+        <th>ISBN</th>
+        <th>Condition</th>
+      </tr>
+      @for(textbook <- textbooks) {
+        <tr>
+          <td>@textbook.getTitle()</td>
+          <td>@textbook.getAuthor()</td>
+          <td>@textbook.getIsbn()</td>
+          <td>@textbook.getCondition()</td>
+        </tr>
+      }
+     </table>
+   </div>
+}

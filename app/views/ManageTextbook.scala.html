@@ -1,7 +1,47 @@
-@(message: String)
+@(title: String, textbookForm: Form[views.formdata.TextbookFormData], conditions: List[String])
 
-@Main("Page1") {
+@import helper._
+@import bootstrap3._
+
+@Main(title) {
    <div class="container">
-     <p>@message</p> 
+     <div class="well">
+     @form(routes.Application.postTextbook(), 'class -> "form-horizontal") {
+     
+     <!-- Title -->
+     @text(textbookForm("title"), 
+           label = "Title", 
+           placeholder = "Title", 
+           help = "")    
+     
+     <!-- Author -->
+     @text(textbookForm("author"), 
+           label = "Author", 
+           placeholder = "Author", 
+           help = "")   
+     
+     <!-- ISBN -->
+     @text(textbookForm("isbn"), 
+           label = "ISBN", 
+           placeholder = "ISBN", 
+           help = "")
+     
+     <!-- Condition -->
+     @radiobuttons(textbookForm("condition"),
+                label = "Condition",
+                buttonNameList = conditions,
+                help = "")
+     
+     <!-- Image URL -->
+     @text(textbookForm("textbookURL"), 
+           label = "Image URL", 
+           placeholder = "Image URL", 
+           help = "")
+     }
+     
+     <button type="submit" class="btn btn-default col-sm-offset-2 col-sm-2">Submit</button>
+     <br />
+     <br />
+     </div>
    </div>
 }

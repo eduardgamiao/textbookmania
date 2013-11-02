@@ -15,7 +15,7 @@ public class TextbookCondtion {
    * @return A list of conditions.
    */
   public static List<String> getCondition() {
-    String[] condition = {"Excellent", "Good", "Fair", "Poot"};
+    String[] condition = {"Excellent", "Good", "Fair", "Poor"};
     return Arrays.asList(condition);
   }
 }

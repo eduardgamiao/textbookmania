@@ -36,6 +36,10 @@
       <div class="collapse navbar-collapse">
         <ul class="nav navbar-nav">
           <li class="@(" active".when(page=="Home"))"><a href="@routes.Application.index()">Home</a></li>
+          <li class="@(" active".when(page=="Home"))"><a href="@routes.Application.showStudents()">Students</a></li>
+          <li class="@(" active".when(page=="Home"))"><a href="@routes.Application.showTextbooks()">Textbooks</a></li>
+          <li class="@(" active".when(page=="Home"))"><a href="@routes.Application.newStudent()">Add Student</a></li>
+          <li class="@(" active".when(page=="Home"))"><a href="@routes.Application.newTextbook()">Add Textbook</a></li>
         </ul>
       </div>
     </div>
