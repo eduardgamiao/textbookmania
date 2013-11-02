@@ -1,6 +1,10 @@
 package views.formdata;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import play.data.validation.ValidationError;
 import models.BuyOffer;
@@ -23,7 +27,7 @@ public class BuyOfferFormData {
   public Integer price = 0;
   
   /** Expiration date of the offer. */
-  public String expirationDate = "";
+  public String expirationDate = "9999/12/31 23:59:59";
   
   /**
    * Blank constructor.
@@ -42,7 +46,9 @@ public class BuyOfferFormData {
   public BuyOfferFormData(String student, String textbook, Integer price, String date) {
     this.student = student;
     this.textbook = textbook;
-    this.price = price;
+    if (isDateFormatted(date)) {
+      this.price = price;
+    }
     this.expirationDate = date;
   }
   
@@ -53,15 +59,18 @@ public class BuyOfferFormData {
   public BuyOfferFormData(BuyOffer offer) {
     this.student = offer.getStudentName();
     this.textbook = offer.getTextbookName();
-    this.price = offer.getPrice();
+    if (isDateFormatted(offer.getExpirationDate())) {
+      this.price = offer.getPrice();
+    }
     this.expirationDate = offer.getExpirationDate();
   }
 
   /**
    * Validation method for the StudentDataForm.
    * @return A List of errors (if they exist), otherwise null.
+   * @throws ParseException 
    */
-  public List<ValidationError> validate() {
+  public List<ValidationError> validate() throws ParseException {
     List<ValidationError> errors = new ArrayList<ValidationError>();
     
     /* testing */
@@ -85,6 +94,10 @@ public class BuyOfferFormData {
     if (this.expirationDate == "" || this.expirationDate == null) {
       errors.add(new ValidationError("expirationDate", "The expiration date is required."));
     }
+    if (!(isDateValid())) {
+      errors.add(new ValidationError("expirationDate", "The expiration date needs to be after the current date/time and"
+                                     + " follow the format YYYY/MM/dd hh/mm/ss."));      
+    }
     
     return errors.isEmpty() ? null : errors;
   }
@@ -107,7 +120,31 @@ public class BuyOfferFormData {
         ? "" : this.textbook.substring(this.textbook.indexOf('(') + 1, this.textbook.indexOf(')'));
   }
   
+  /**
+   * Check if the date.
+   * @return False if the current date is after the expiration date, true otherwise.
+   * @throws ParseException Thrown if String is not formatted properly.
+   */
+  private boolean isDateValid() throws ParseException {
+    DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+    Date currentDate = new Date();
+    if (isDateFormatted(this.expirationDate)) {
+      Date expire = dateFormat.parse(this.expirationDate);
+      return !currentDate.after(expire);
+    }
+    else {
+      return false;
+    }
+  }
   
-  
-
+  /**
+   * Check if the date entered is formatted correctly.
+   * @param date Date to check.
+   * @return True if the date is formatted correctly, otherwise false.
+   */
+  private boolean isDateFormatted(String date) {
+    // Must match ####/##/## ##:##:## format.
+    return date.matches("[0-9][0-9][0-9][0-9]/[0-1][0-9]/[0-3][0-9] "
+                                       + "[0-2][0-9]:[0-6][0-9]:[0-6][0-9]");
+  }
 }
