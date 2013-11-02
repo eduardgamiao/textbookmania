@@ -115,7 +115,7 @@ public class Application extends Controller {
     else {
       BuyOfferFormData form = formData.get();
       BuyOfferDB.addBuyOffer(form);
-      Map<String, Boolean> studentMap = StudentDB.getStudentNames(form.student.getEmail());
+      Map<String, Boolean> studentMap = StudentDB.getStudentNames(form.student);
       return ok(ManageBuyOffer.render("Manage Student", formData, studentMap));
     } 
   }

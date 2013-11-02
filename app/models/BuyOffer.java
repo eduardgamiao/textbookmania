@@ -1,57 +1,55 @@
 package models;
 
-import java.util.Date;
-
 /**
  * A object representing a Student's want to buy a Textbook.
  */
 public class BuyOffer {
 
-  private Student student;
-  private Textbook textbook;
+  private String studentName;
+  private String textbookName;
   private Integer price;
-  private Date expirationDate;
+  private String expirationDate;
   
   /**
    * Constructor.
-   * @param student The Student that wants to buy.
+   * @param studentName The Student that wants to buy.
    * @param textbook The Textbook that is wanted to buy.
    * @param price The price of the text book.
    * @param expirationDate The expiration date of the offer.
    */
-  public BuyOffer(Student student, Textbook textbook, Integer price, Date expirationDate) {
-    this.setStudent(student);
-    this.setTextbook(textbook);
+  public BuyOffer(String studentName, String textbook, Integer price, String expirationDate) {
+    this.setStudentName(studentName);
+    this.setTextbookName(textbook);
     this.setPrice(price);
     this.setExpirationDate(expirationDate);
   }
 
   /**
-   * @return the student
+   * @return the studentName
    */
-  public Student getStudent() {
-    return student;
+  public String getStudentName() {
+    return studentName;
   }
 
   /**
-   * @param student the student to set
+   * @param studentName the studentName to set
    */
-  public void setStudent(Student student) {
-    this.student = student;
+  public void setStudentName(String studentName) {
+    this.studentName = studentName;
   }
 
   /**
-   * @return the textbook
+   * @return the textbookName
    */
-  public Textbook getTextbook() {
-    return textbook;
+  public String getTextbookName() {
+    return textbookName;
   }
 
   /**
-   * @param textbook the textbook to set
+   * @param textbookName the textbookName to set
    */
-  public void setTextbook(Textbook textbook) {
-    this.textbook = textbook;
+  public void setTextbookName(String textbookName) {
+    this.textbookName = textbookName;
   }
 
   /**
@@ -71,18 +69,14 @@ public class BuyOffer {
   /**
    * @return the expirationDate
    */
-  public Date getExpirationDate() {
+  public String getExpirationDate() {
     return expirationDate;
   }
 
   /**
    * @param expirationDate the expirationDate to set
    */
-  public void setExpirationDate(Date expirationDate) {
+  public void setExpirationDate(String expirationDate) {
     this.expirationDate = expirationDate;
   }
-  
-  
-  
-  
 }

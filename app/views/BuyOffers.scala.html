@@ -2,7 +2,7 @@
 
 @Main("Buy Offers") {
    <div class="container">
-     <h2>List of Buy Offers</h2>
+     <h2>List of Buy Offers (@buyOffers.size())</h2>
      <table class="table table-stripped">
       <tr>
         <th>Buyer</th>
@@ -12,8 +12,8 @@
       </tr>
       @for(buyOffer <- buyOffers) {
         <tr>
-          <td>@buyOffer.getStudent()</td>
-          <td>@buyOffer.getTextbook()</td>
+          <td>@buyOffer.getStudentName()</td>
+          <td>@buyOffer.getTextbookName()</td>
           <td>@buyOffer.getPrice()</td>
           <td>@buyOffer.getExpirationDate()</td>
         </tr>

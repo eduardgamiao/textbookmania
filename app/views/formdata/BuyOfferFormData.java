@@ -1,14 +1,10 @@
 package views.formdata;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import play.data.validation.ValidationError;
 import models.BuyOffer;
-import models.BuyOfferDB;
-import models.Student;
 import models.StudentDB;
-import models.Textbook;
 import models.TextbookDB;
 
 /**
@@ -18,16 +14,16 @@ public class BuyOfferFormData {
   private static final Integer PRICE_FLOOR = 0;
   
   /** Student that wants to buy. */
-  public Student student;
+  public String student = "";
   
   /** Textbook wanted to be bought. */
-  public Textbook textbook;
+  public String textbook = "Lol";
   
   /** Price of the textbook. */
-  public Integer price;
+  public Integer price = 0;
   
   /** Expiration date of the offer. */
-  public Date expirationDate;
+  public String expirationDate = "";
   
   /**
    * Blank constructor.
@@ -43,7 +39,7 @@ public class BuyOfferFormData {
    * @param price Price of Textbook.
    * @param date Date the offer expires.
    */
-  public BuyOfferFormData(Student student, Textbook textbook, Integer price, Date date) {
+  public BuyOfferFormData(String student, String textbook, Integer price, String date) {
     this.student = student;
     this.textbook = textbook;
     this.price = price;
@@ -55,8 +51,8 @@ public class BuyOfferFormData {
    * @param offer A BuyOffer object.
    */
   public BuyOfferFormData(BuyOffer offer) {
-    this.student = offer.getStudent();
-    this.textbook = offer.getTextbook();
+    this.student = offer.getStudentName();
+    this.textbook = offer.getTextbookName();
     this.price = offer.getPrice();
     this.expirationDate = offer.getExpirationDate();
   }
@@ -72,12 +68,13 @@ public class BuyOfferFormData {
     if (this.student == null) {
       errors.add(new ValidationError("student", "A student is required."));
     }
-    if (!(StudentDB.isEmailTaken(this.student.getEmail()))) {
-      errors.add(new ValidationError("student", "The Student linked to the email \"" + this.student.getEmail() + "\""
+    if (!(StudentDB.isEmailTaken(this.student))) {
+      errors.add(new ValidationError("student", "The Student linked to the email \"" + this.student + "\""
           + " is not valid."));
     }
-    if (!(TextbookDB.doesIsbnExist(this.textbook.getIsbn()))) {
-      errors.add(new ValidationError("isbn", "The Textbook with the ISBN \"" + this.textbook.getIsbn() + "\""
+    /*
+    if (!(TextbookDB.doesIsbnExist(this.textbook))) {
+      errors.add(new ValidationError("isbn", "The Textbook with the ISBN \"" + this.textbook + "\""
           + " is not valid."));
     }
     if (BuyOfferDB.isInteger(this.price.toString())) {
@@ -86,10 +83,8 @@ public class BuyOfferFormData {
     if (this.price < PRICE_FLOOR) {
       errors.add(new ValidationError("price", "The price of the offer must be a positive, whole number."));      
     }
-    if (this.expirationDate.before(new Date())) {
-      errors.add(new ValidationError("expirationDate", "The date \"" + this.expirationDate.toString() + "\" has already"
-          + " passed."));       
-    }
+    */
+    // Date Validation TODO.
     
     return errors.isEmpty() ? null : errors;
   }
