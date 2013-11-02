@@ -168,6 +168,22 @@ public class Application extends Controller {
   }
   
   /**
+   * Renders page for editing a Student.
+   * @param email Email of the Student to edit.
+   * @return The Student form.
+   */
+  public static Result manageStudent(String email) {
+    if (StudentDB.isEmailTaken(email)) {
+      StudentFormData data = new StudentFormData(StudentDB.getStudent(email));
+      Form<StudentFormData> formData = Form.form(StudentFormData.class).fill(data);
+      return ok(ManageStudent.render("Manage Student", formData));
+    }
+    else {
+      return badRequest(Index.render("nope.avi"));
+    }
+  }
+  
+  /**
    * Renders page after submitting form data.
    * @return The Textbook page.
    */
