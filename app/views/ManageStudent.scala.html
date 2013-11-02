@@ -1,7 +1,20 @@
-@(message: String)
+@(title: String, studentForm: Form[views.formdata.StudentFormData])
 
-@Main("Page1") {
-   <div class="container">
-     <p>@message</p> 
-   </div>
+@import helper._ 
+@import bootstrap3._ 
+
+@Main(title) {
+<div class="container">
+  @form(routes.Application.postStudent(), 'class -> "form-horizontal") {
+
+  <!-- Name -->
+  @text(surferForm("firstName"), 
+    label = "First Name", 
+    placeholder = "First Name", 
+    help = "Enter your First Name.")
+    
+    
+  <button type="submit" class="btn btn-default col-sm-offset-2 col-sm-2">Submit</button>
+  }
+</div>
 }

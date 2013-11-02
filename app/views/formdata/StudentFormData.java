@@ -22,6 +22,13 @@ public class StudentFormData {
   
   /** Student's avatar URL. */
   public String avatarURL = "";
+  
+  /**
+   * Blank constructor.
+   */
+  public StudentFormData() {
+    // TODO Auto-generated constructor stub
+  }
 
   /**
    * Constructor.
@@ -47,7 +54,7 @@ public class StudentFormData {
     this.email = student.getEmail();
     this.email = student.getAvatarURL();
   }
-  
+
   /**
    * Validation method for the StudentDataForm.
    * @return A List of errors (if they exist), otherwise null.
