@@ -1,4 +1,4 @@
-name := "play-bootstrap-template"
+name := "text-book-mania"
 
 version := "1.0-SNAPSHOT"
 
