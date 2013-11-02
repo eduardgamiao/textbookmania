@@ -1,15 +1,19 @@
 package controllers;
 
 import java.util.List;
+import java.util.Map;
+import models.BuyOfferDB;
 import models.StudentDB;
 import models.TextbookDB;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
+import views.formdata.BuyOfferFormData;
 import views.formdata.StudentFormData;
 import views.formdata.TextbookCondtion;
 import views.formdata.TextbookFormData;
 import views.html.Index;
+import views.html.ManageBuyOffer;
 import views.html.ManageStudent;
 import views.html.ManageTextbook;
 import views.html.Students;
@@ -66,6 +70,35 @@ public class Application extends Controller {
   }
   
   /**
+   * Render form for creating a new BuyOffer.
+   * @return The BuyOffer data page.
+   */
+  public static Result newBuyOffer() {
+    BuyOfferFormData data = new BuyOfferFormData();
+    Form<BuyOfferFormData> formData = Form.form(BuyOfferFormData.class).fill(data);
+    Map<String, Boolean> studentMap = StudentDB.getStudentNames();
+    return ok(ManageBuyOffer.render("Add New Buy-Offer", formData, studentMap));
+  }
+  
+  /**
+   * Renders page after submitting form data.
+   * @return The BuyOffer page.
+   */
+  public static Result postBuyOffer() {
+    Form<BuyOfferFormData> formData = Form.form(BuyOfferFormData.class).bindFromRequest();
+    if (formData.hasErrors()) {
+      Map<String, Boolean> studentMap = StudentDB.getStudentNames();
+      return badRequest(ManageBuyOffer.render("Manage Buy-Offer", formData, studentMap));
+    }
+    else {
+      BuyOfferFormData form = formData.get();
+      BuyOfferDB.addBuyOffer(form);
+      Map<String, Boolean> studentMap = StudentDB.getStudentNames(form.student.getEmail());
+      return ok(ManageBuyOffer.render("Manage Student", formData, studentMap));
+    } 
+  }
+  
+  /**
    * Renders page after submitting form data.
    * @return The Student page.
    */
@@ -97,5 +130,5 @@ public class Application extends Controller {
       return ok(ManageTextbook.render("Manage Textbook", formData, conditions));
     } 
   }
-  
+   
 }
