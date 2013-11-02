@@ -1,5 +1,7 @@
 package controllers;
 
+import java.util.Map;
+import models.StudentDB;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -35,7 +37,15 @@ public class Application extends Controller {
    * @return The Student page.
    */
   public static Result postStudent() {
-    return ok(Index.render("Welcome to the home page."));    
+    Form<StudentFormData> formData = Form.form(StudentFormData.class).bindFromRequest();
+    if (formData.hasErrors()) {
+      return badRequest(ManageStudent.render("Manage Student", formData));
+    }
+    else {
+      StudentFormData form = formData.get();
+      StudentDB.addStudent(form);
+      return ok(ManageStudent.render("Manage Student", formData));
+    } 
   }
   
 }
