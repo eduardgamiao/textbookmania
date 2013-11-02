@@ -25,6 +25,18 @@
           isMultiple = false,
           help = "")
           
+ <!-- Price -->
+  @text(buyOfferForm("price"), 
+    label = "Price", 
+    placeholder = "$0", 
+    help = "")
+
+ <!-- Date -->
+  @text(buyOfferForm("expirationDate"), 
+    label = "Expiration Date", 
+    placeholder = "Format", 
+    help = "")          
+               
   <button type="submit" class="btn btn-default col-sm-offset-2 col-sm-2">Submit</button>
   <br />
   <br />

@@ -17,7 +17,7 @@ public class BuyOfferFormData {
   public String student = "";
   
   /** Textbook wanted to be bought. */
-  public String textbook = "Lol";
+  public String textbook = "";
   
   /** Price of the textbook. */
   public Integer price = 0;
@@ -68,34 +68,45 @@ public class BuyOfferFormData {
     if (this.student == null || this.student == "") {
       errors.add(new ValidationError("student", "A student is required."));
     }
-    if (!(StudentDB.isEmailTaken(formatStudentName()))) {
+    if (!(StudentDB.isEmailTaken(formatName()))) {
       errors.add(new ValidationError("student", "The Student linked to the email \""
-          +  formatStudentName() + "\" is not valid."));
+          +  formatName() + "\" is not valid."));
     }
-    if (!(TextbookDB.doesIsbnExist(this.textbook))) {
-      errors.add(new ValidationError("isbn", "The Textbook with the ISBN \"" + this.textbook + "\""
+    if (this.textbook == "" || this.textbook == null) {
+      errors.add(new ValidationError("textbook", "Textbook is required"));
+    }
+    if (!(TextbookDB.doesIsbnExist(formatTextName()))) {
+      errors.add(new ValidationError("textbook", "The Textbook with the ISBN \"" + formatTextName() + "\""
           + " is not valid."));
     }
-    /*
-    if (BuyOfferDB.isInteger(this.price.toString())) {
-      errors.add(new ValidationError("price", "The price of the offer must be a positive, whole number."));      
-    }
     if (this.price < PRICE_FLOOR) {
-      errors.add(new ValidationError("price", "The price of the offer must be a positive, whole number."));      
+      errors.add(new ValidationError("price", "The price must be a positive, whole number"));
     }
-    */
-    // Date Validation TODO.
+    if (this.expirationDate == "" || this.expirationDate == null) {
+      errors.add(new ValidationError("expirationDate", "The expiration date is required."));
+    }
     
     return errors.isEmpty() ? null : errors;
   }
   
   /**
-   * Formats Student name from options.
+   * Formats String to extract email.
    * @return The email address of the Student extracted from the select menu input.
    */
-  private String formatStudentName() {
-    return this.student.substring(this.student.indexOf('(') + 1, this.student.indexOf(')'));
+  private String formatName() {
+    return this.student == null || this.student == "" 
+        ? "" : this.student.substring(this.student.indexOf('(') + 1, this.student.indexOf(')'));
   }
+  
+  /**
+   * Formats String to extract email.
+   * @return The email address of the Student extracted from the select menu input.
+   */
+  private String formatTextName() {
+    return this.textbook == null || this.textbook == "" 
+        ? "" : this.textbook.substring(this.textbook.indexOf('(') + 1, this.textbook.indexOf(')'));
+  }
+  
   
   
 
