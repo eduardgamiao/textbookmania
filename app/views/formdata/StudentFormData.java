@@ -52,7 +52,7 @@ public class StudentFormData {
     this.firstName = student.getFirstName();
     this.lastName = student.getLastName();
     this.email = student.getEmail();
-    this.email = student.getAvatarURL();
+    this.avatarURL = student.getAvatarURL();
   }
 
   /**
