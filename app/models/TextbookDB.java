@@ -53,6 +53,10 @@ public class TextbookDB {
     return textbooks.containsKey(isbn);
   }
   
+  /**
+   * Return mapping of textbook names and a boolean value.
+   * @return A mapping of textbook names and a boolean value.
+   */
   public static Map<String, Boolean> getTextbookNames() {
     Map<String, Boolean> bookMap = new HashMap<String, Boolean>();
     List<Textbook> textbooks = getTextbooks();
@@ -61,10 +65,15 @@ public class TextbookDB {
     }
     return bookMap;
   }
-  
+
+  /**
+   * Return mapping of textbook names and a boolean value.
+   * @param isbn Textbook to set to true.
+   * @return A mapping of textbook names and a boolean value.
+   */
   public static Map<String, Boolean> getTextbookNames(String isbn) {
     Map<String, Boolean> bookMap = getTextbookNames();
-    if(textbooks.containsKey(isbn)) {
+    if (textbooks.containsKey(isbn)) {
       bookMap.put(isbn, true);
     }
     return bookMap;
