@@ -40,4 +40,22 @@ public class StudentDB {
   public static Student getStudent(String email) {
     return students.get(email);
   }
+  
+  /**
+   * Checks if an email exists in the database.
+   * @param email The email to check.
+   * @return True if the email is already used, false otherwise.
+   */
+  public static boolean isEmailTaken(String email) {
+    return students.containsKey(email);
+  }
+  
+  /**
+   * Checks if an email is valid.
+   * @param email The email to check.
+   * @return True if the email is valid, false otherwise.
+   */
+  public static boolean isEmailValid(String email) {
+    return email.contains("@") && email.contains(".");
+  }
 }
