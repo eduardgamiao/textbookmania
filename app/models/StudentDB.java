@@ -48,7 +48,7 @@ public class StudentDB {
   public static Map<String, Boolean> getStudentNames() {
     Map<String, Boolean> studentMap = new HashMap<String, Boolean>();
     for (Student student : getStudents()) {
-      studentMap.put(student.getEmail(), false);
+      studentMap.put(student.getFirstName() + " " + student.getLastName() + " (" + student.getEmail() + ")", false);
     }
     return studentMap;
   }

@@ -65,12 +65,12 @@ public class BuyOfferFormData {
     List<ValidationError> errors = new ArrayList<ValidationError>();
     
     /* testing */
-    if (this.student == null) {
+    if (this.student == null || this.student == "") {
       errors.add(new ValidationError("student", "A student is required."));
     }
-    if (!(StudentDB.isEmailTaken(this.student))) {
-      errors.add(new ValidationError("student", "The Student linked to the email \"" + this.student + "\""
-          + " is not valid."));
+    if (!(StudentDB.isEmailTaken(formatStudentName()))) {
+      errors.add(new ValidationError("student", "The Student linked to the email \""
+          +  formatStudentName() + "\" is not valid."));
     }
     /*
     if (!(TextbookDB.doesIsbnExist(this.textbook))) {
@@ -87,6 +87,10 @@ public class BuyOfferFormData {
     // Date Validation TODO.
     
     return errors.isEmpty() ? null : errors;
+  }
+  
+  private String formatStudentName() {
+    return this.student.substring(this.student.indexOf('(') + 1, this.student.indexOf(')'));
   }
   
   
