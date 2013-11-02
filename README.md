@@ -8,6 +8,6 @@ Usage
 
 Credits
 
-Alvin Wang
+Alvin Wang<br/>
 Eduard Gamiao
 

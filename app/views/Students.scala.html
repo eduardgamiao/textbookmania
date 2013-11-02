@@ -3,7 +3,7 @@
 @Main("Students") {
    <div class="container">
      <h2>List of Students</h2>
-     <table class="table table-stripped">
+     <table class="table table-bordered table-stripped">
       <tr>
         <th>Avatar</th>
         <th>First Name</th>
@@ -13,9 +13,10 @@
       @for(student <- students) {
         <tr>
           <td><img class="student-img" src="@student.getAvatarURL()"></td>
-          <td>@student.getFirstName()</td>
-          <td>@student.getLastName()</td>
-          <td>@student.getEmail()</td>
+          <td><div style="padding-top:42px;">@student.getFirstName()</div></td>
+          <td><div style="padding-top:42px;">@student.getLastName()</div></td>
+          <td><div style="padding-top:42px;">@student.getEmail()</div></td>
+          </div>
         </tr>
       }
      </table>
