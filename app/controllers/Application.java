@@ -179,6 +179,5 @@ public class Application extends Controller {
       TextbookDB.addTextbook(form);
       return ok(ManageTextbook.render("Manage Textbook", formData, conditions));
     } 
-  }
-   
+  }   
 }
