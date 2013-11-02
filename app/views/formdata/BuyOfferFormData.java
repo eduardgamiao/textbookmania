@@ -68,6 +68,10 @@ public class BuyOfferFormData {
   public List<ValidationError> validate() {
     List<ValidationError> errors = new ArrayList<ValidationError>();
     
+    /* testing */
+    if (this.student == null) {
+      errors.add(new ValidationError("student", "A student is required."));
+    }
     if (!(StudentDB.isEmailTaken(this.student.getEmail()))) {
       errors.add(new ValidationError("student", "The Student linked to the email \"" + this.student.getEmail() + "\""
           + " is not valid."));
