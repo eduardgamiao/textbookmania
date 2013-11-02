@@ -80,8 +80,10 @@ public class StudentFormData {
     if (this.avatarURL == null || this.avatarURL.length() == 0) {
       errors.add(new ValidationError("avatarURL", "Avatar URL is required."));
     }
-    if (!(this.avatarURL.endsWith(".jpg") || this.avatarURL.endsWith(".png") || this.avatarURL.endsWith(".gif"))) {
-      errors.add(new ValidationError("avatarURL", "Avatar needs to be a \".jpg\", \".png\" or \".gif\" file."));
+    if (!(this.avatarURL.endsWith(".jpg") || this.avatarURL.endsWith(".png") || this.avatarURL.endsWith(".gif") 
+        || (this.avatarURL.contains("s.gravatar.com/avatar")))) {
+      errors.add(new ValidationError("avatarURL", "Avatar needs to be a \".jpg\", \".png\" or \".gif\" file or be a "
+                                     + " link to a Gravatar image."));
     }
     
     return errors.isEmpty() ? null : errors;
