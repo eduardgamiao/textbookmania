@@ -5,7 +5,6 @@
      <h2>List of Textbooks</h2>
      <table class="table table-stripped">
       <tr>
-        <th></th>
         <th>Title</th>
         <th>Author</th>
         <th>ISBN</th>
@@ -13,7 +12,6 @@
       </tr>
       @for(textbook <- textbooks) {
         <tr>
-          <td><img src="http://images.amazon.com/images/P/@textbook.getIsbn().01._PE20_SCMZZZZZZZ_.jpg"></td>
           <td>@textbook.getTitle()</td>
           <td>@textbook.getAuthor()</td>
           <td>@textbook.getIsbn()</td>
