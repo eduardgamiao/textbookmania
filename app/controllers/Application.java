@@ -5,6 +5,7 @@ import java.util.Map;
 import models.BuyOfferDB;
 import models.SellOfferDB;
 import models.StudentDB;
+import models.Textbook;
 import models.TextbookDB;
 import play.data.Form;
 import play.mvc.Controller;
@@ -99,7 +100,8 @@ public class Application extends Controller {
     BuyOfferFormData data = new BuyOfferFormData();
     Form<BuyOfferFormData> formData = Form.form(BuyOfferFormData.class).fill(data);
     Map<String, Boolean> studentMap = StudentDB.getStudentNames();
-    return ok(ManageBuyOffer.render("Add New Buy-Offer", formData, studentMap));
+    Map<String, Boolean> bookMap = TextbookDB.getTextbookNames();
+    return ok(ManageBuyOffer.render("Add New Buy-Offer", formData, studentMap, bookMap));
   }
   
   /**
@@ -110,13 +112,15 @@ public class Application extends Controller {
     Form<BuyOfferFormData> formData = Form.form(BuyOfferFormData.class).bindFromRequest();
     if (formData.hasErrors()) {
       Map<String, Boolean> studentMap = StudentDB.getStudentNames();
-      return badRequest(ManageBuyOffer.render("Manage Buy-Offer", formData, studentMap));
+      Map<String, Boolean> bookMap = TextbookDB.getTextbookNames();
+      return badRequest(ManageBuyOffer.render("Manage Buy-Offer", formData, studentMap, bookMap));
     }
     else {
       BuyOfferFormData form = formData.get();
       BuyOfferDB.addBuyOffer(form);
       Map<String, Boolean> studentMap = StudentDB.getStudentNames(form.student);
-      return ok(ManageBuyOffer.render("Manage Student", formData, studentMap));
+      Map<String, Boolean> bookMap = TextbookDB.getTextbookNames(form.textbook);
+      return ok(ManageBuyOffer.render("Manage Student", formData, studentMap, bookMap));
     } 
   }
   

@@ -52,4 +52,21 @@ public class TextbookDB {
   public static boolean doesIsbnExist(String isbn) {
     return textbooks.containsKey(isbn);
   }
+  
+  public static Map<String, Boolean> getTextbookNames() {
+    Map<String, Boolean> bookMap = new HashMap<String, Boolean>();
+    List<Textbook> textbooks = getTextbooks();
+    for (Textbook textbook : textbooks) {
+      bookMap.put(textbook.getTitle() + " (" + textbook.getIsbn() + ")", false);
+    }
+    return bookMap;
+  }
+  
+  public static Map<String, Boolean> getTextbookNames(String isbn) {
+    Map<String, Boolean> bookMap = getTextbookNames();
+    if(textbooks.containsKey(isbn)) {
+      bookMap.put(isbn, true);
+    }
+    return bookMap;
+  }
 }

@@ -72,11 +72,11 @@ public class BuyOfferFormData {
       errors.add(new ValidationError("student", "The Student linked to the email \""
           +  formatStudentName() + "\" is not valid."));
     }
-    /*
     if (!(TextbookDB.doesIsbnExist(this.textbook))) {
       errors.add(new ValidationError("isbn", "The Textbook with the ISBN \"" + this.textbook + "\""
           + " is not valid."));
     }
+    /*
     if (BuyOfferDB.isInteger(this.price.toString())) {
       errors.add(new ValidationError("price", "The price of the offer must be a positive, whole number."));      
     }
@@ -89,6 +89,10 @@ public class BuyOfferFormData {
     return errors.isEmpty() ? null : errors;
   }
   
+  /**
+   * Formats Student name from options.
+   * @return The email address of the Student extracted from the select menu input.
+   */
   private String formatStudentName() {
     return this.student.substring(this.student.indexOf('(') + 1, this.student.indexOf(')'));
   }
