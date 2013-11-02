@@ -58,4 +58,13 @@ public class StudentDB {
   public static boolean isEmailValid(String email) {
     return email.contains("@") && email.contains(".");
   }
+  
+  /**
+   * Check if a Student exists in the database.
+   * @param student The Student to check.
+   * @return True if the Student exists, false otherwise.
+   */
+  public static boolean isStudentReal(Student student) {
+    return students.containsValue(student);
+  }
 }

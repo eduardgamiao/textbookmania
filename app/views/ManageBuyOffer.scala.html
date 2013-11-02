@@ -1,0 +1,41 @@
+@(title: String, buyOfferForm: Form[views.formdata.BuyOfferFormData])
+
+@import helper._ 
+@import bootstrap3._ 
+
+@Main(title) {
+<div class="container">
+  <div class="well">
+  @form(routes.Application.postStudent(), 'class -> "form-horizontal") {
+
+  <!-- Student -->
+  @text(buyOfferForm("student"), 
+    label = "First Name", 
+    placeholder = "First Name", 
+    help = "")
+    
+  <!-- Textbook -->
+  @text(buyOfferForm("textbook"), 
+    label = "Last Name", 
+    placeholder = "Last Name", 
+    help = "")   
+    
+  <!-- Price -->
+  @text(buyOfferForm("price"), 
+    label = "Email", 
+    placeholder = "Email", 
+    help = "")       
+
+  <!-- Exp. Date -->
+  @text(buyOfferForm("avatarURL"), 
+    label = "Avatar URL", 
+    placeholder = "Avatar URL", 
+    help = "")       
+        
+  <button type="submit" class="btn btn-default col-sm-offset-2 col-sm-2">Submit</button>
+  <br />
+  <br />
+  </div>
+  }
+</div>
+}

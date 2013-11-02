@@ -5,14 +5,17 @@ import java.util.Date;
 import java.util.List;
 import play.data.validation.ValidationError;
 import models.BuyOffer;
+import models.BuyOfferDB;
 import models.Student;
 import models.StudentDB;
 import models.Textbook;
+import models.TextbookDB;
 
 /**
  * Form data for a BuyOffer.
  */
 public class BuyOfferFormData {
+  private static final Integer PRICE_FLOOR = 0;
   
   /** Student that wants to buy. */
   public Student student;
@@ -64,6 +67,25 @@ public class BuyOfferFormData {
    */
   public List<ValidationError> validate() {
     List<ValidationError> errors = new ArrayList<ValidationError>();
+    
+    if (!(StudentDB.isEmailTaken(this.student.getEmail()))) {
+      errors.add(new ValidationError("student", "The Student linked to the email \"" + this.student.getEmail() + "\""
+          + " is not valid."));
+    }
+    if (!(TextbookDB.doesIsbnExist(this.textbook.getIsbn()))) {
+      errors.add(new ValidationError("isbn", "The Textbook with the ISBN \"" + this.textbook.getIsbn() + "\""
+          + " is not valid."));
+    }
+    if (BuyOfferDB.isInteger(this.price.toString())) {
+      errors.add(new ValidationError("price", "The price of the offer must be a positive, whole number."));      
+    }
+    if (this.price < PRICE_FLOOR) {
+      errors.add(new ValidationError("price", "The price of the offer must be a positive, whole number."));      
+    }
+    if (this.expirationDate.before(new Date())) {
+      errors.add(new ValidationError("expirationDate", "The date \"" + this.expirationDate.toString() + "\" has already"
+          + " passed."));       
+    }
     
     return errors.isEmpty() ? null : errors;
   }
