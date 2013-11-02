@@ -42,6 +42,31 @@ public class StudentDB {
   }
   
   /**
+   * Return a mapping of the Student's email.
+   * @return A mapping of the Student's email.
+   */
+  public static Map<String, Boolean> getStudentNames() {
+    Map<String, Boolean> studentMap = new HashMap<String, Boolean>();
+    for (Student student : getStudents()) {
+      studentMap.put(student.getEmail(), false);
+    }
+    return studentMap;
+  }
+  
+  /**
+   * Return a mapping of the Student's email.
+   * @param email Email of the Student to change.
+   * @return A mapping of the Student's email.
+   */
+  public static Map<String, Boolean> getStudentNames(String email) {
+    Map<String, Boolean> studentMap = getStudentNames();
+    if (isEmailTaken(email)) {
+     studentMap.put(email, true);
+    }
+    return studentMap;
+  }
+  
+  /**
    * Checks if an email exists in the database.
    * @param email The email to check.
    * @return True if the email is already used, false otherwise.

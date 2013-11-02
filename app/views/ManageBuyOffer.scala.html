@@ -1,4 +1,6 @@
-@(title: String, buyOfferForm: Form[views.formdata.BuyOfferFormData])
+@(title: String, 
+  buyOfferForm: Form[views.formdata.BuyOfferFormData],
+  studentNames: Map[String, Boolean])
 
 @import helper._ 
 @import bootstrap3._ 
@@ -9,29 +11,12 @@
   @form(routes.Application.postStudent(), 'class -> "form-horizontal") {
 
   <!-- Student -->
-  @text(buyOfferForm("student"), 
-    label = "First Name", 
-    placeholder = "First Name", 
-    help = "")
-    
-  <!-- Textbook -->
-  @text(buyOfferForm("textbook"), 
-    label = "Last Name", 
-    placeholder = "Last Name", 
-    help = "")   
-    
-  <!-- Price -->
-  @text(buyOfferForm("price"), 
-    label = "Email", 
-    placeholder = "Email", 
-    help = "")       
-
-  <!-- Exp. Date -->
-  @text(buyOfferForm("avatarURL"), 
-    label = "Avatar URL", 
-    placeholder = "Avatar URL", 
-    help = "")       
-        
+  @bootstrap3.select(buyOfferForm("student"),
+          label = "Students",
+          optionMap = studentNames,
+          isMultiple = false,
+          help = "")
+          
   <button type="submit" class="btn btn-default col-sm-offset-2 col-sm-2">Submit</button>
   <br />
   <br />
