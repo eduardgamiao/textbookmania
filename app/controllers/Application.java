@@ -5,6 +5,7 @@ import java.util.Map;
 import models.BuyOffer;
 import models.BuyOfferDB;
 import models.SellOfferDB;
+import models.Student;
 import models.StudentDB;
 import models.TextbookDB;
 import play.data.Form;
@@ -21,6 +22,7 @@ import views.html.ManageBuyOffer;
 import views.html.ManageSellOffer;
 import views.html.ManageStudent;
 import views.html.ManageTextbook;
+import views.html.ManageMatches;
 import views.html.Matches;
 import views.html.Students;
 import views.html.Textbooks;
@@ -228,7 +230,7 @@ public class Application extends Controller {
     Form<MatchesFormData> formData = Form.form(MatchesFormData.class).fill(data);
     Map<String, Boolean> studentMap = StudentDB.getStudentNames();
     List<BuyOffer> buyOffers = BuyOfferDB.getBuyOffers();
-    return ok(Matches.render(formData, studentMap, buyOffers));
+    return ok(ManageMatches.render(formData, studentMap));
   }
   
   /**
@@ -239,6 +241,6 @@ public class Application extends Controller {
     Form<MatchesFormData> formData = Form.form(MatchesFormData.class).bindFromRequest();
     MatchesFormData data = formData.get();
     System.out.println(data.studentEmail);
-    return TODO;
+    return ok(Matches.render(data.studentEmail));
   }
 }
