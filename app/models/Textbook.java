@@ -2,7 +2,7 @@ package models;
 
 /** 
  * A textbook object that represents a textbook.
- * @author Alvin Wang
+ * @author Alvin Wang, Eduard Gamiao
  *
  */
 public class Textbook {
