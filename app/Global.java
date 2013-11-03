@@ -73,6 +73,9 @@ public class Global extends GlobalSettings {
 
     TextbookDB.addTextbook(new TextbookFormData("Digital Logic Design: A Rigorous Approach", "Guy Even and Moti "
         + "Medina", "1107027535", "Poor"));
+    
+    TextbookDB.addTextbook(new TextbookFormData("Operating System Concepts [Loose Leaf]", 
+        "Abraham Silberschatz, Peter B. Galvin, Greg Gagne", "1118129385", "Excellent"));
   }
 
 }
