@@ -243,6 +243,7 @@ public class Application extends Controller {
     }
     else {
       MatchesFormData data = formData.get();
+      System.out.println("Validate PASSED: " + data.studentEmail);
       List<BuyOffer> buyOffers = BuyOfferDB.getBuyOffers();
       String email = data.studentEmail.substring(data.studentEmail.indexOf('(') + 1, data.studentEmail.indexOf(')'));
       return ok(Matches.render(email, buyOffers));
