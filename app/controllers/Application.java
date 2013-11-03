@@ -77,7 +77,7 @@ public class Application extends Controller {
   public static Result newStudent() {
     StudentFormData data = new StudentFormData();
     Form<StudentFormData> formData = Form.form(StudentFormData.class).fill(data);
-    return ok(ManageStudent.render("Add New Surfer", formData));
+    return ok(ManageStudent.render("Add New Surfer", formData, false));
   }
   
   /**
@@ -158,12 +158,12 @@ public class Application extends Controller {
   public static Result postStudent() {
     Form<StudentFormData> formData = Form.form(StudentFormData.class).bindFromRequest();
     if (formData.hasErrors()) {
-      return badRequest(ManageStudent.render("Manage Student", formData));
+      return badRequest(ManageStudent.render("Manage Student", formData, false));
     }
     else {
       StudentFormData form = formData.get();
       StudentDB.addStudent(form);
-      return ok(ManageStudent.render("Manage Student", formData));
+      return ok(Students.render(StudentDB.getStudents()));
     } 
   }
   
@@ -176,7 +176,7 @@ public class Application extends Controller {
     if (StudentDB.isEmailTaken(email)) {
       StudentFormData data = new StudentFormData(StudentDB.getStudent(email));
       Form<StudentFormData> formData = Form.form(StudentFormData.class).fill(data);
-      return ok(ManageStudent.render("Manage Student", formData));
+      return ok(ManageStudent.render("Manage Student", formData, true));
     }
     else {
       return badRequest(Index.render("nope.avi"));
@@ -213,7 +213,7 @@ public class Application extends Controller {
       return ok(ManageTextbook.render("Manage Textbook", formData, conditions));
     }
     else {
-      return badRequest(Index.render("nope.avi"));
+      return badRequest(Index.render(""));
     }
   }
 }
