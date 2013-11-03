@@ -198,5 +198,22 @@ public class Application extends Controller {
       TextbookDB.addTextbook(form);
       return ok(ManageTextbook.render("Manage Textbook", formData, conditions));
     } 
-  }   
+  }
+  
+  /**
+   * Renders page for editing a Textbook.
+   * @param isbn ISBN of textbook to edit.
+   * @return The Textbook form.
+   */
+  public static Result manageTextbook(String isbn) {
+    if (TextbookDB.doesIsbnExist(isbn)) {
+      TextbookFormData data = new TextbookFormData(TextbookDB.getTextbook(isbn));
+      Form<TextbookFormData> formData = Form.form(TextbookFormData.class).fill(data);
+      List<String> conditions = TextbookCondtion.getCondition();
+      return ok(ManageTextbook.render("Manage Textbook", formData, conditions));
+    }
+    else {
+      return badRequest(Index.render("nope.avi"));
+    }
+  }
 }
