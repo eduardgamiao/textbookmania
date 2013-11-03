@@ -8,6 +8,8 @@ import org.apache.commons.validator.routines.ISBNValidator;
  *
  */
 public class Textbook {  
+  private static final Integer THREE = 3; // For CheckStyle.
+  private static final Integer TEN = 10; // For CheckStyle.
   private String title;
   private String author;
   private String isbn;
@@ -105,8 +107,7 @@ public class Textbook {
    * @return A URL of the image for the book.
    */
   public static String createURL(String productCode) {
-    ISBNValidator validator = new ISBNValidator(true);
-    return validator.toString();
+    return convertISBN13To10(productCode);
   }
   
   /**
@@ -115,8 +116,31 @@ public class Textbook {
    * @return A ISBN10 representation of the ISBN13.
    */
   public static String convertISBN13To10(String isbn13) {
-    return "";
-    
+    if (new ISBNValidator().isValidISBN13(isbn13)) {
+      // Multiply the first 12 digits of the ISBN by 1 or 3 based on position.
+      Integer sum = 0;
+      Integer multiplier = 1;
+      char [] digitArray = isbn13.toCharArray();
+      for (char c : digitArray) {
+        if (multiplier == 1) {
+          sum += Character.getNumericValue(c) * multiplier;
+          multiplier = THREE;        
+        }
+        else if (multiplier == THREE) {
+          System.out.println(c + " * " + multiplier);
+          sum += Character.getNumericValue(c) * multiplier;
+          multiplier = 1;
+        }
+      }
+      
+      String sumString = "" + sum;
+      
+      return (sum % TEN == 0) ? isbn13.substring(3, isbn13.length() - 1).concat("0") 
+             : isbn13.substring(3, isbn13.length() - 1).concat("" + sumString.charAt(sumString.length()));
+    }
+    else {
+      return isbn13;
+    }
   }
   
 }
