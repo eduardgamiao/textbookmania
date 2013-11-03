@@ -14,7 +14,7 @@
       </tr>
       @for(textbook <- textbooks) {
         <tr>
-          <td><img src="http://images.amazon.com/images/P/@textbook.getIsbn().01._PE20_SCMZZZZZZZ_.jpg"></td>
+          <td><img src="@textbook.getTextbookURL()"></td>
           <td>@textbook.getTitle()</td>
           <td>@textbook.getAuthor()</td>
           <td>@textbook.getIsbn()</td>
