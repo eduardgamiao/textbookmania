@@ -63,9 +63,7 @@ public class StudentFormData {
    * Validation method for the StudentDataForm.
    * @return A List of errors (if they exist), otherwise null.
    */
-  public List<ValidationError> validate() {
-    System.out.println(StudentDB.isEmailTaken(this.email) + " " + isEditing);
-    
+  public List<ValidationError> validate() {    
     List<ValidationError> errors = new ArrayList<ValidationError>();
     
     if (this.firstName == null || this.firstName.length() == 0) {

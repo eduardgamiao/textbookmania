@@ -1,13 +1,21 @@
-@(studentNames: Map[String, Boolean],
+@(matchesForm: Form[views.formdata.MatchesFormData],
+  studentNames: Map[String, Boolean],
   buyOffers: List[BuyOffer])
-
+  
+ @import helper._
+ import bootstrap3._
+  
 @Main("Matches") {
    <div class="container">
-     <a class="btn btn-primary btn-lg pull-left" href="@routes.Application.newStudent()">Find Matches</a>
-     <br />
-     <br />
-     <h2>List of Buy Offers (@buyOffers.size())</h2>
-
-     <h2>List of Sell Offers (@buyOffers.size())</h2>
+     @form(routes.Application.postMatches(), 'class -> "form-horizontal") {
+     
+     <!-- Student Name -->
+     @bootstrap3.select(matchesForm("studentEmail"),
+          label = "Choose a Student",
+          optionMap = studentNames,
+          isMultiple = false,
+          help = "")
+     <a class="btn btn-primary btn-lg pull-left" href="@routes.Application.postMatches()">Find Matches</a>
+     }
    </div>
 }
