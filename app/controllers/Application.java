@@ -35,48 +35,53 @@ import views.html.SellOffers;
 public class Application extends Controller {
 
   /**
-   * Returns the home page. 
-   * @return The resulting home page. 
+   * Returns the home page.
+   * 
+   * @return The resulting home page.
    */
   public static Result index() {
     return ok(Index.render("Welcome to the home page."));
   }
-  
+
   /**
    * Returns the show students page.
+   * 
    * @return The show students page.
    */
   public static Result showStudents() {
     return ok(Students.render(StudentDB.getStudents()));
   }
-  
+
   /**
    * Returns the show textbooks page.
+   * 
    * @return The show textbooks page.
    */
   public static Result showTextbooks() {
     return ok(Textbooks.render(TextbookDB.getTextbooks()));
   }
-  
+
   /**
    * Returns the showBuyOffers page.
+   * 
    * @return The showBuyOffers page.
    */
   public static Result showBuyOffers() {
     return ok(BuyOffers.render(BuyOfferDB.getBuyOffers()));
   }
-  
+
   /**
    * Returns the showSellOffers page.
+   * 
    * @return The showSellOffers page.
    */
   public static Result showSellOffers() {
     return ok(SellOffers.render(SellOfferDB.getSellOffers()));
   }
-  
-  
+
   /**
    * The Student data form page.
+   * 
    * @return The Student data form page.
    */
   public static Result newStudent() {
@@ -84,9 +89,10 @@ public class Application extends Controller {
     Form<StudentFormData> formData = Form.form(StudentFormData.class).fill(data);
     return ok(ManageStudent.render("Add New Surfer", formData, false));
   }
-  
+
   /**
    * The Textbook data form page.
+   * 
    * @return The Textbook data form page.
    */
   public static Result newTextbook() {
@@ -95,34 +101,43 @@ public class Application extends Controller {
     List<String> conditions = TextbookCondtion.getCondition();
     return ok(ManageTextbook.render("Add New Textbook", formData, conditions, false));
   }
-  
+
   /**
    * Render form for creating a new BuyOffer.
+   * @param id The id.
    * @return The BuyOffer data page.
    */
-  public static Result newBuyOffer() {
+  public static Result newBuyOffer(long id) {
     BuyOfferFormData data = new BuyOfferFormData();
     Form<BuyOfferFormData> formData = Form.form(BuyOfferFormData.class).fill(data);
     Map<String, Boolean> studentMap = StudentDB.getStudentNames();
     Map<String, Boolean> bookMap = TextbookDB.getTextbookNames();
     return ok(ManageBuyOffer.render("Add New Buy-Offer", formData, studentMap, bookMap));
   }
-  
+
   /**
    * Manages a existing BuyOffer of given ID.
+   * 
    * @param id The ID.
    * @return The BuyOffer data page.
    */
   public static Result manageBuyOffer(long id) {
-    BuyOfferFormData data = new BuyOfferFormData(BuyOfferDB.getBuyOffer(id));
-    Form<BuyOfferFormData> formData = Form.form(BuyOfferFormData.class).fill(data);
-    Map<String, Boolean> studentMap = StudentDB.getStudentNames(data.student);
-    Map<String, Boolean> bookMap = TextbookDB.getTextbookNames(data.textbook);
-    return ok(ManageBuyOffer.render("Add New Buy-Offer", formData, studentMap, bookMap));
+    System.out.println("Entering Manage: " + id);
+    if (BuyOfferDB.getBuyOffer(id) != null) {
+      BuyOfferFormData data = new BuyOfferFormData(BuyOfferDB.getBuyOffer(id));
+      Form<BuyOfferFormData> formData = Form.form(BuyOfferFormData.class).fill(data);
+      Map<String, Boolean> studentMap = StudentDB.getStudentNames(data.student);
+      Map<String, Boolean> bookMap = TextbookDB.getTextbookNames(data.textbook);
+      return ok(ManageBuyOffer.render("Add New Buy-Offer", formData, studentMap, bookMap));
+    }
+    else {
+      return badRequest(BuyOffers.render(BuyOfferDB.getBuyOffers()));
+    }
   }
-  
+
   /**
    * Renders page after submitting form data.
+   * 
    * @return The BuyOffer page.
    */
   public static Result postBuyOffer() {
@@ -134,15 +149,15 @@ public class Application extends Controller {
     }
     else {
       BuyOfferFormData form = formData.get();
+      System.out.println("From PBO: " +  form.id);
       BuyOfferDB.addBuyOffer(form);
-      //Map<String, Boolean> studentMap = StudentDB.getStudentNames(form.student);
-      //Map<String, Boolean> bookMap = TextbookDB.getTextbookNames(form.textbook);
       return ok(BuyOffers.render(BuyOfferDB.getBuyOffers()));
-    } 
+    }
   }
-  
+
   /**
    * Deletes a BuyOffer from the database.
+   * 
    * @param id The ID.
    * @return The BuyOffers page.
    */
@@ -150,9 +165,10 @@ public class Application extends Controller {
     BuyOfferDB.deleteBuyOffer(id);
     return ok(BuyOffers.render(BuyOfferDB.getBuyOffers()));
   }
-  
+
   /**
    * Render form for creating a new SellOffer.
+   * 
    * @return The SellOffer data page.
    */
   public static Result newSellOffer() {
@@ -162,9 +178,10 @@ public class Application extends Controller {
     Map<String, Boolean> bookMap = TextbookDB.getTextbookNames();
     return ok(ManageSellOffer.render("Add New Sell-Offer", formData, studentMap, bookMap));
   }
-  
+
   /**
    * Renders page after submitting form data.
+   * 
    * @return The SellOffer page.
    */
   public static Result postSellOffer() {
@@ -177,13 +194,15 @@ public class Application extends Controller {
     else {
       SellOfferFormData form = formData.get();
       SellOfferDB.addSellOffer(form);
-     // Map<String, Boolean> studentMap = StudentDB.getStudentNames(form.student);
-     // Map<String, Boolean> bookMap = TextbookDB.getTextbookNames();
+      // Map<String, Boolean> studentMap = StudentDB.getStudentNames(form.student);
+      // Map<String, Boolean> bookMap = TextbookDB.getTextbookNames();
       return ok(SellOffers.render(SellOfferDB.getSellOffers()));
-    } 
+    }
   }
+
   /**
    * Renders page after submitting form data.
+   * 
    * @return The Student page.
    */
   public static Result postStudent() {
@@ -195,11 +214,12 @@ public class Application extends Controller {
       StudentFormData form = formData.get();
       StudentDB.addStudent(form);
       return ok(Students.render(StudentDB.getStudents()));
-    } 
+    }
   }
-  
+
   /**
    * Renders page for editing a Student.
+   * 
    * @param email Email of the Student to edit.
    * @return The Student form.
    */
@@ -213,9 +233,10 @@ public class Application extends Controller {
       return badRequest(Index.render("nope.avi"));
     }
   }
-  
+
   /**
    * Renders page after submitting form data.
+   * 
    * @return The Textbook page.
    */
   public static Result postTextbook() {
@@ -228,11 +249,12 @@ public class Application extends Controller {
       TextbookFormData form = formData.get();
       TextbookDB.addTextbook(form);
       return ok(Textbooks.render(TextbookDB.getTextbooks()));
-    } 
+    }
   }
-  
+
   /**
    * Renders page for editing a Textbook.
+   * 
    * @param isbn ISBN of textbook to edit.
    * @return The Textbook form.
    */
@@ -242,10 +264,10 @@ public class Application extends Controller {
     List<String> conditions = TextbookCondtion.getCondition();
     return ok(ManageTextbook.render("Manage Textbook", formData, conditions, true));
   }
-  
-  
+
   /**
    * Renders the Matches form.
+   * 
    * @return The Matches form.
    */
   public static Result matches() {
@@ -254,9 +276,10 @@ public class Application extends Controller {
     Map<String, Boolean> studentMap = StudentDB.getStudentNames();
     return ok(ManageMatches.render(formData, studentMap));
   }
-  
+
   /**
    * Renders the Matches page.
+   * 
    * @return The Matches page.
    */
   public static Result postMatches() {
@@ -269,8 +292,7 @@ public class Application extends Controller {
       MatchesFormData data = formData.get();
       List<BuyOffer> buyOffers = BuyOfferDB.getBuyOffers();
       List<SellOffer> sellOffers = SellOfferDB.getSellOffers();
-      String email = data.studentEmail.substring(data.studentEmail.indexOf('(') + 1, 
-          data.studentEmail.indexOf(')'));     
+      String email = data.studentEmail.substring(data.studentEmail.indexOf('(') + 1, data.studentEmail.indexOf(')'));
       return ok(Matches.render(data.studentEmail, email, buyOffers, sellOffers));
     }
   }

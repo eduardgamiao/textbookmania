@@ -30,7 +30,7 @@ public class BuyOfferFormData {
   public String expirationDate = "9999/12/31 23:59:59";
   
   /** THe ID field. */
-  public long id;
+  public long id = 0;
   
   /**
    * Blank constructor.
@@ -46,13 +46,14 @@ public class BuyOfferFormData {
    * @param price Price of Textbook.
    * @param date Date the offer expires.
    */
-  public BuyOfferFormData(String student, String textbook, Integer price, String date) {
+  public BuyOfferFormData(String student, String textbook, Integer price, String date, long id) {
     this.student = student;
     this.textbook = textbook;
     if (isDateFormatted(date)) {
       this.price = price;
     }
     this.expirationDate = date;
+    this.id = id;
   }
   
   /**
@@ -66,6 +67,7 @@ public class BuyOfferFormData {
       this.price = offer.getPrice();
     }
     this.expirationDate = offer.getExpirationDate();
+    System.out.println("FROM BOFD: " + offer.getId());
     this.id = offer.getId();
   }
 

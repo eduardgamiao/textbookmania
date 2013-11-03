@@ -2,7 +2,7 @@
 
 @Main("Buy Offers") {
    <div class="container">
-     <a class="btn btn-primary btn-lg pull-right" href="@routes.Application.newBuyOffer()">Add Offer</a>
+     <a class="btn btn-primary btn-lg pull-right" href="@routes.Application.newBuyOffer(0)">Add Offer</a>
      <h2>List of Buy Offers (@buyOffers.size())</h2>
      <table class="table table-bordered table-stripped">
       <tr>
@@ -19,6 +19,7 @@
           <td>@buyOffer.getExpirationDate()</td>
           <td><a href="@routes.Application.manageBuyOffer(buyOffer.getId())"><button class="btn">Edit</button></a></td>
           <td><a href="@routes.Application.deleteBuyOffer(buyOffer.getId())"><button class="btn">Delete</button></a></td>
+          <td>@buyOffer.getId()</td>
         </tr>
       }
      </table>
