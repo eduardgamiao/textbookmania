@@ -27,13 +27,16 @@
     label = "Email", 
     placeholder = "Email", 
     help = "",
-    isEditing = editing)       
+    disabled = editing)       
 
   <!-- Avatar URL -->
   @text(studentForm("avatarURL"), 
     label = "Avatar URL", 
     placeholder = "Avatar URL", 
-    help = "")       
+    help = "")  
+    
+  @hidden(studentForm("isEditing"),
+            value = editing)     
         
   <button type="submit" class="btn btn-default col-sm-offset-2 col-sm-2">Submit</button>
   <br />
