@@ -165,6 +165,17 @@ public class Application extends Controller {
     }
   }
 
+  /**
+   * Deletes a Textbook from the database.
+   * 
+   * @param isbn The textbook ISBN.
+   * @return The Students page.
+   */
+  public static Result deleteTextbook(String isbn) {
+    TextbookDB.deleteTextbook(isbn);
+    return ok(Textbooks.render(TextbookDB.getTextbooks()));
+  }
+  
   
   
   /** BUY OFFER **/

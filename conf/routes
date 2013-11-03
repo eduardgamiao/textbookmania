@@ -13,6 +13,7 @@ GET     /students/:email/delete     controllers.Application.deleteStudent(email)
 GET     /newtextbook                controllers.Application.newTextbook()
 GET     /textbooks                  controllers.Application.showTextbooks()
 GET     /textbooks/:isbn/edit       controllers.Application.manageTextbook(isbn)
+GET     /textbooks/:isbn/delete     controllers.Application.deleteTextbook(isbn)
 
 GET     /newbuyoffer                controllers.Application.newBuyOffer(id: Long)
 GET     /buyoffers                  controllers.Application.showBuyOffers()

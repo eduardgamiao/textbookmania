@@ -29,6 +29,15 @@ public class TextbookDB {
   }
   
   /**
+   * Deletes a Textbook from the database.
+   * 
+   * @param isbn ISBN of textbook to delete.
+   */
+  public static void deleteTextbook(String isbn) {
+    textbooks.remove(isbn);
+  }
+  
+  /**
    * Returns a List of textbooks.
    * @return A list of textbooks.
    */
