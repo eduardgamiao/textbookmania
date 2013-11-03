@@ -158,12 +158,12 @@ public class Application extends Controller {
   public static Result postStudent() {
     Form<StudentFormData> formData = Form.form(StudentFormData.class).bindFromRequest();
     if (formData.hasErrors()) {
-      return badRequest(ManageStudent.render("Manage Student", formData, false));
+      return badRequest(ManageStudent.render("Manage Student", formData, true));
     }
     else {
       StudentFormData form = formData.get();
       StudentDB.addStudent(form);
-      return ok(Students.render(StudentDB.getStudents()));
+      return ok(ManageStudent.render("Manage Student", formData, false));
     } 
   }
   
