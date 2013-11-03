@@ -1,8 +1,11 @@
-@(buyOffers: List[BuyOffer])
+@(studentNames: Map[String, Boolean],
+  buyOffers: List[BuyOffer])
 
 @Main("Matches") {
    <div class="container">
      <a class="btn btn-primary btn-lg pull-left" href="@routes.Application.newStudent()">Find Matches</a>
+     <br />
+     <br />
      <h2>List of Buy Offers (@buyOffers.size())</h2>
 
      <h2>List of Sell Offers (@buyOffers.size())</h2>

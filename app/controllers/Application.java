@@ -2,6 +2,7 @@ package controllers;
 
 import java.util.List;
 import java.util.Map;
+import models.BuyOffer;
 import models.BuyOfferDB;
 import models.SellOfferDB;
 import models.StudentDB;
@@ -19,6 +20,7 @@ import views.html.ManageBuyOffer;
 import views.html.ManageSellOffer;
 import views.html.ManageStudent;
 import views.html.ManageTextbook;
+import views.html.Matches;
 import views.html.Students;
 import views.html.Textbooks;
 import views.html.BuyOffers;
@@ -210,5 +212,11 @@ public class Application extends Controller {
     Form<TextbookFormData> formData = Form.form(TextbookFormData.class).fill(data);
     List<String> conditions = TextbookCondtion.getCondition();
     return ok(ManageTextbook.render("Manage Textbook", formData, conditions, true));
+  }
+  
+  public static Result matches() {
+    Map<String, Boolean> studentMap = StudentDB.getStudentNames();
+    List<BuyOffer> buyOffers = BuyOfferDB.getBuyOffers();
+    return ok(Matches.render(studentMap, buyOffers));
   }
 }
