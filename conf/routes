@@ -8,6 +8,7 @@ GET     /                           controllers.Application.index()
 GET     /newstudent                 controllers.Application.newStudent()
 GET     /students                   controllers.Application.showStudents()
 GET     /students/:email/edit       controllers.Application.manageStudent(email)
+GET     /students/:email/delete     controllers.Application.deleteStudent(email)
 
 GET     /newtextbook                controllers.Application.newTextbook()
 GET     /textbooks                  controllers.Application.showTextbooks()

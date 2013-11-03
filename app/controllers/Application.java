@@ -99,6 +99,17 @@ public class Application extends Controller {
     }
   }
 
+  /**
+   * Deletes a Student from the database.
+   * 
+   * @param email the email.
+   * @return The Students page.
+   */
+  public static Result deleteStudent(String email) {
+    StudentDB.deleteStudent(email);
+    return ok(Students.render(StudentDB.getStudents()));
+  }
+  
   
   
   /** TEXTBOOKS **/

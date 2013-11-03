@@ -25,6 +25,15 @@ public class StudentDB {
   }
   
   /**
+   * Deletes a student from the database.
+   * 
+   * @param email Email of student to delete.
+   */
+  public static void deleteStudent(String email) {
+    students.remove(email);
+  }
+  
+  /**
    * Return a List of Students.
    * @return A List of Students.
    */
