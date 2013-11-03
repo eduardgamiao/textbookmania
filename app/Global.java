@@ -21,11 +21,17 @@ public class Global extends GlobalSettings {
     StudentDB.addStudent(new StudentFormData("Eduard", "Gamiao", "eduard@hawaii.edu", "http://s.gravatar.com"
         + "/avatar/7435fbb221d3302b55a396cab93b2149?s=80"));
     
+    StudentDB.addStudent(new StudentFormData("Alvin", "Wang", "alvinw@hawaii.edu", "https://en.gravatar.com/"
+        + "userimage/54501069/d2cf47994deac7bc9288c1cc1a17c879.png?size=200"));
+    
     // Add Textbooks.
     TextbookDB.addTextbook(new TextbookFormData("Introudction to Algorithms", "Thomas Cormen", 
                                                 "0262033844", "Fair",
                                                 "http://images.amazon.com/images/P/"
                                                 + "0262033844.01._PE20_SCMZZZZZZZ_.jpg"));
+    
+    TextbookDB.addTextbook(new TextbookFormData("Digital Logic Design: A Rigorous Approach", "Guy Even and Moti "
+        + "Medina", "1107027535", "Poor", "http://images.amazon.com/images/P/1107027535.01._PE20_SCMZZZZZZZ_.jpg"));
   }  
   
 }
