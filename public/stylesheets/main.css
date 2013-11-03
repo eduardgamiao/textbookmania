@@ -1,6 +1,10 @@
 body {
 }
 
+.navbar-toggle .icon-bar {
+  background-color: #33A8F2;
+}
+
 .navbar {
   border-radius: 0px; 
 }
