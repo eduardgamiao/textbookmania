@@ -22,8 +22,7 @@ public class TextbookDB {
    * @return The textbook added.
    */
   public static Textbook addTextbook(TextbookFormData formData) {
-    Textbook textbook = new Textbook(formData.title, formData.author, formData.isbn, formData.condition, 
-        formData.textbookURL);
+    Textbook textbook = new Textbook(formData.title, formData.author, formData.isbn, formData.condition);
     textbooks.put(textbook.getIsbn(), textbook);
     titles.add(textbook.getTitle());
     return textbook;

@@ -50,7 +50,7 @@ public class TextbookFormData {
     this.author = textbook.getAuthor();
     this.isbn = textbook.getIsbn();
     this.condition = textbook.getCondition();
-    this.textbookURL = textbook.getTextbookURL();
+    this.textbookURL = Textbook.createURL(this.isbn);
     this.isEditing = true;
   }
 
@@ -61,14 +61,13 @@ public class TextbookFormData {
    * @param author The textbook author.
    * @param isbn The textbook ISBN.
    * @param condition The textbook condition.
-   * @param textbookURL Image URL for textbook.
    */
-  public TextbookFormData(String title, String author, String isbn, String condition, String textbookURL) {
+  public TextbookFormData(String title, String author, String isbn, String condition) {
     this.title = title;
     this.author = author;
     this.isbn = isbn;
     this.condition = condition;
-    this.textbookURL = textbookURL;
+    this.textbookURL = Textbook.createURL(this.isbn);
   }
 
   /**

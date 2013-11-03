@@ -26,12 +26,10 @@ public class Global extends GlobalSettings {
     
     // Add Textbooks.
     TextbookDB.addTextbook(new TextbookFormData("Introduction to Algorithms", "Thomas Cormen", 
-                                                "0262033844", "Fair",
-                                                "http://images.amazon.com/images/P/"
-                                                + "0262033844.01._PE20_SCMZZZZZZZ_.jpg"));
+                                                "0262033844", "Fair"));
     
     TextbookDB.addTextbook(new TextbookFormData("Digital Logic Design: A Rigorous Approach", "Guy Even and Moti "
-        + "Medina", "1107027535", "Poor", "http://images.amazon.com/images/P/1107027535.01._PE20_SCMZZZZZZZ_.jpg"));
+                                                + "Medina", "1107027535", "Poor"));
   }  
   
 }
