@@ -11,12 +11,12 @@ body {
   width: 100px;
 }
 
-.section-1 h1 {
+.index-section-1 h1 {
   font-size: 60px;
   font-weight: bold;
 }
 
-.section-2 > h1 {
+.index-section-2 > h1 {
   margin: 10px 20px 20px 20px;
 }
 
