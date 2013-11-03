@@ -12,7 +12,9 @@ import models.TextbookDB;
  *
  */
 public class TextbookFormData {
-
+  private static final Integer ISBN10 = 10;
+  private static final Integer ISBN13 = 13;
+  
   /** The textbook's title. */
   public String title = "";
   /** The textbook's author. */
@@ -73,12 +75,20 @@ public class TextbookFormData {
       errors.add(new ValidationError("title", "Title is required."));
     }
     
+    if (TextbookDB.isTitleUnique(this.title.trim())) {
+      errors.add(new ValidationError("title", "The Title \"" + this.title + "\" already exists."));      
+    }
+    
     if (this.author == null || this.author.length() == 0) {
       errors.add(new ValidationError("author", "Author is required."));
     }
     
     if (this.isbn == null || this.isbn.length() == 0) {
       errors.add(new ValidationError("isbn", "ISBN is required."));
+    }
+    
+    if (this.isbn.length() != ISBN10 || this.isbn.length() != ISBN13) {
+      errors.add(new ValidationError("isbn", "ISBN needs to be 10 or 13 numbers long."));      
     }
     
     if (TextbookDB.doesIsbnExist(this.isbn) && !isEditing) {

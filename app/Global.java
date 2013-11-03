@@ -25,7 +25,7 @@ public class Global extends GlobalSettings {
         + "userimage/54501069/d2cf47994deac7bc9288c1cc1a17c879.png?size=200"));
     
     // Add Textbooks.
-    TextbookDB.addTextbook(new TextbookFormData("Introudction to Algorithms", "Thomas Cormen", 
+    TextbookDB.addTextbook(new TextbookFormData("Introduction to Algorithms", "Thomas Cormen", 
                                                 "0262033844", "Fair",
                                                 "http://images.amazon.com/images/P/"
                                                 + "0262033844.01._PE20_SCMZZZZZZZ_.jpg"));

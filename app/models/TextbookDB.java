@@ -14,6 +14,7 @@ import views.formdata.TextbookFormData;
 public class TextbookDB {
   
   private static Map<String, Textbook> textbooks = new HashMap<String, Textbook>();
+  private static List<String> titles = new ArrayList<String>();
   
   /**
    * Add a textbook to the database.
@@ -24,6 +25,7 @@ public class TextbookDB {
     Textbook textbook = new Textbook(formData.title, formData.author, formData.isbn, formData.condition, 
         formData.textbookURL);
     textbooks.put(textbook.getIsbn(), textbook);
+    titles.add(textbook.getTitle());
     return textbook;
   }
   
@@ -77,5 +79,14 @@ public class TextbookDB {
       bookMap.put(isbn, true);
     }
     return bookMap;
+  }
+  
+  /**
+   * Check if a title exists.
+   * @param title The title to check.
+   * @return True if the title exists, false otherwise.
+   */
+  public static boolean isTitleUnique(String title) {
+    return titles.contains(title);
   }
 }
