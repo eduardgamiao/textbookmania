@@ -160,12 +160,12 @@ public class Application extends Controller {
   public static Result postStudent() {
     Form<StudentFormData> formData = Form.form(StudentFormData.class).bindFromRequest();
     if (formData.hasErrors()) {
-      return badRequest(ManageStudent.render("Manage Student", formData, true));
+      return badRequest(ManageStudent.render("Manage Student", formData, false));
     }
     else {
       StudentFormData form = formData.get();
       StudentDB.addStudent(form);
-      return ok(ManageStudent.render("Manage Student", formData, false));
+      return ok(Students.render(StudentDB.getStudents()));
     } 
   }
   
@@ -193,12 +193,12 @@ public class Application extends Controller {
     Form<TextbookFormData> formData = Form.form(TextbookFormData.class).bindFromRequest();
     List<String> conditions = TextbookCondtion.getCondition();
     if (formData.hasErrors()) {
-      return badRequest(ManageTextbook.render("Manage Textbook", formData, conditions, true));
+      return badRequest(ManageTextbook.render("Manage Textbook", formData, conditions, false));
     }
     else {
       TextbookFormData form = formData.get();
       TextbookDB.addTextbook(form);
-      return ok(ManageTextbook.render("Manage Textbook", formData, conditions, false));
+      return ok(Textbooks.render(TextbookDB.getTextbooks()));
     } 
   }
   
