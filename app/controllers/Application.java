@@ -18,6 +18,7 @@ import views.formdata.StudentFormData;
 import views.formdata.TextbookCondtion;
 import views.formdata.TextbookFormData;
 import views.html.Index;
+import views.html.Help;
 import views.html.ManageBuyOffer;
 import views.html.ManageSellOffer;
 import views.html.ManageStudent;
@@ -41,7 +42,15 @@ public class Application extends Controller {
   public static Result index() {
     return ok(Index.render("Welcome to the home page."));
   }
-
+  
+  /**
+   * Returns the help page.
+   * 
+   * @return The help page.
+   */
+  public static Result showHelp() {
+    return ok(Help.render(""));
+  }
   /**
    * Returns the show students page.
    * 

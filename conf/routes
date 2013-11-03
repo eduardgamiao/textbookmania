@@ -27,6 +27,8 @@ GET     /selloffer/:id/delete       controllers.Application.deleteSellOffer(id: 
 
 GET     /matches                    controllers.Application.matches()
 
+GET     /help                       controllers.Application.showHelp()
+
 POST    /poststudent                controllers.Application.postStudent()
 POST    /posttextbook               controllers.Application.postTextbook()
 POST    /postbuy                    controllers.Application.postBuyOffer()
