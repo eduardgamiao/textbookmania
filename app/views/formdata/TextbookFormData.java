@@ -76,7 +76,7 @@ public class TextbookFormData {
       errors.add(new ValidationError("title", "Title is required."));
     }
 
-    if (TextbookDB.isTitleUnique(this.title.trim())) {
+    if (TextbookDB.isTitleUnique(this.title.trim()) && !isEditing) {
       errors.add(new ValidationError("title", "The Title \"" + this.title + "\" already exists."));
     }
 

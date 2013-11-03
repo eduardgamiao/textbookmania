@@ -9,10 +9,11 @@
      @form(routes.Application.postTextbook(), 'class -> "form-horizontal") {
      
      <!-- Title -->
-     @text(textbookForm("title"), 
+     @isbn(textbookForm("title"), 
            label = "Title", 
            placeholder = "Title", 
-           help = "")    
+           help = "",
+           disabled = editing)    
      
      <!-- Author -->
      @text(textbookForm("author"), 
