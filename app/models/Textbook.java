@@ -29,7 +29,6 @@ public class Textbook {
    * @param author The textbook author.
    * @param isbn The textbook isbn.
    * @param condition The textbook condition.
-   * @param textbookURL The image URL for textbook.
    */
   public Textbook(String title, String author, String isbn, String condition) {
     this.title = title;

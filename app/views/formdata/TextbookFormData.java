@@ -2,6 +2,7 @@ package views.formdata;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.commons.validator.routines.ISBNValidator;
 import play.data.validation.ValidationError;
 import models.Textbook;
 import models.TextbookDB;
@@ -15,11 +16,7 @@ import models.TextbookDB;
 public class TextbookFormData {
   private static final Integer ISBN10 = 10;
   private static final Integer ISBN13 = 13;
-  private static final Integer TEN = 10; // For CheckStyle.
-  private static final Integer ZERO = 0; // For CheckStyle.
-  private static final Integer THREE = 3; // For CheckStyle.
-  private static final Integer ELEVEN = 11; // For CheckStyle.
-
+  
   /** The textbook's title. */
   public String title = "";
   /** The textbook's author. */
@@ -135,31 +132,8 @@ public class TextbookFormData {
    * @return True if it is valid, false otherwise.
    */
   private static boolean isISBNValid(String isbn) {
-    if (isbn.length() == ISBN10) {
-      Integer a = 0;
-      Integer b = 0;
-      Integer strLength = isbn.length();
-      for (int i = 0; i < strLength; i++) {
-        a += Integer.valueOf(isbn.substring(i, i + 1));
-        b += a;
-      }
-      return b % ELEVEN == ZERO;
-    }
-    else if (isbn.length() == ISBN13) {
-      int check = 0;
-      int strLength = ISBN13 - 1;
-      for (int i = 0; i < strLength; i += 2) {
-        check += Integer.valueOf(isbn.substring(i, i + 1));
-      }
-      for (int i = 1; i < strLength; i += 2) {
-        check += Integer.valueOf(isbn.substring(i, i + 1)) * THREE;
-      }
-      check += Integer.valueOf(isbn.substring(strLength));
-      return check % TEN == ZERO;
-    }
-    else {
-      return false;
-    }
+    ISBNValidator validator = new ISBNValidator();
+    return validator.isValid(isbn);
   }
  }
 
