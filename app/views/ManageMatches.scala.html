@@ -25,8 +25,8 @@
    </div>
    
       <div class="container"> 
-    @if(StudentDB.getStudent(studentEmail) != null || studentEmail == "" || studentEmail == null) {
-      <h2>Matches for @student</h2>
+    @if(StudentDB.getStudent(studentEmail) != null) {
+      <h2>Buy Offers for @student</h2>
       <table class="table table-bordered">
         <tr>
           <th>Name</th>
@@ -44,7 +44,7 @@
       }    
       </table>
       <br />
-      <h2>Matches for @student</h2>
+      <h2>Sell Offers for @student</h2>
       <table class="table table-bordered">
         <tr>
           <th>Name</th>
@@ -61,8 +61,6 @@
         </tr>
       }    
       </table>
-    } else {
-      <p>Invalid Email.<span class="label label-danger">Danger</span></p>
     }
     
    </div>

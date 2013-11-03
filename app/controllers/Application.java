@@ -373,7 +373,7 @@ public class Application extends Controller {
     else {
       MatchesFormData data = formData.get();
       Map<String, Boolean> studentMap = StudentDB.getStudentNames();
-      List<BuyOffer> buyOffers = BuyOfferDB.getBuyOffers();
+      List<BuyOffer> buyOffers = BuyOfferDB.getBuyOffersByStudent(data.studentEmail);
       List<SellOffer> sellOffers = SellOfferDB.getSellOffersByStudent(data.studentEmail);
       String email = data.studentEmail.substring(data.studentEmail.indexOf('(') + 1, data.studentEmail.indexOf(')'));
       return ok(ManageMatches.render(formData, studentMap, data.studentEmail, email, buyOffers, sellOffers));

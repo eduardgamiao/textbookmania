@@ -61,6 +61,12 @@ public class SellOfferDB {
     return offer;
   }
   
+  /**
+   * Returns a list of SellOffers by a student.
+   * 
+   * @param student The Student.
+   * @return The list of SellOffers from student.
+   */
   public static List<SellOffer> getSellOffersByStudent(String student) {
     List<SellOffer> offerForStudent = new ArrayList<SellOffer>();
     List<SellOffer> allSellOffers = SellOfferDB.getSellOffers();

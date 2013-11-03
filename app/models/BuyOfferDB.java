@@ -57,6 +57,23 @@ public class BuyOfferDB {
   }
   
   /**
+   * Returns a list of BuyOffers by a student.
+   * 
+   * @param student The Student.
+   * @return The list of BuyOffers from student.
+   */
+  public static List<BuyOffer> getBuyOffersByStudent(String student) {
+    List<BuyOffer> offerForStudent = new ArrayList<BuyOffer>();
+    List<BuyOffer> allBuyOffers = BuyOfferDB.getBuyOffers();
+    for (BuyOffer currentOffer : allBuyOffers) {
+      if (currentOffer.getStudentName().equals(student)) {
+        offerForStudent.add(currentOffer);
+      }
+    }
+    return offerForStudent;
+  }
+  
+  /**
    * Deletes a BuyOffer of the passed in ID.
    * @param id The ID.
    */
