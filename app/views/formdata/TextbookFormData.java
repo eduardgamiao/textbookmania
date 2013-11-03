@@ -8,12 +8,16 @@ import models.TextbookDB;
 
 /**
  * Form data for a textbook.
+ * 
  * @author Alvin Wang
- *
+ * 
  */
 public class TextbookFormData {
   private static final Integer ISBN10 = 10;
   private static final Integer ISBN13 = 13;
+  private static final Integer TEN = 10;  // For CheckStyle.
+  private static final Integer ZERO = 0;  // For CheckStyle.
+  private static final Integer THREE = 3; // For CheckStyle.
   
   /** The textbook's title. */
   public String title = "";
@@ -27,16 +31,17 @@ public class TextbookFormData {
   public String textbookURL = "";
   /** If Textbook page is editing. */
   public boolean isEditing = false;
-  
+
   /**
    * Empty constructor.
    */
   public TextbookFormData() {
-    
+
   }
-  
+
   /**
    * Constructor that creates a TextbookFormData from an existing textbook.
+   * 
    * @param textbook An existing textbook.
    */
   public TextbookFormData(Textbook textbook) {
@@ -47,9 +52,10 @@ public class TextbookFormData {
     this.textbookURL = textbook.getTextbookURL();
     this.isEditing = true;
   }
-  
+
   /**
    * Constructor for a TextbookFormData. Used for initialization.
+   * 
    * @param title The textbook title.
    * @param author The textbook author.
    * @param isbn The textbook ISBN.
@@ -63,53 +69,58 @@ public class TextbookFormData {
     this.condition = condition;
     this.textbookURL = textbookURL;
   }
-  
+
   /**
    * Validation method for TextbookFormData.
+   * 
    * @return A list of errors (if they exist), otherwise null.
    */
   public List<ValidationError> validate() {
-    System.out.println(this.isbn.length());
     List<ValidationError> errors = new ArrayList<ValidationError>();
-    
+
     if (this.title == null || this.title.length() == 0) {
       errors.add(new ValidationError("title", "Title is required."));
     }
-    
+
     if (TextbookDB.isTitleUnique(this.title.trim())) {
-      errors.add(new ValidationError("title", "The Title \"" + this.title + "\" already exists."));      
+      errors.add(new ValidationError("title", "The Title \"" + this.title + "\" already exists."));
     }
-    
+
     if (this.author == null || this.author.length() == 0) {
       errors.add(new ValidationError("author", "Author is required."));
     }
-    
+
     if (this.isbn == null || this.isbn.length() == 0) {
       errors.add(new ValidationError("isbn", "ISBN is required."));
     }
-    
+
     if (!isNumeric(this.isbn)) {
-      errors.add(new ValidationError("isbn", "ISBN needs consists of numbers only."));         
+      errors.add(new ValidationError("isbn", "ISBN needs consists of numbers only."));
+    }
+
+    if (!((this.isbn.length() != ISBN10 && this.isbn.length() == ISBN13) || (this.isbn.length() != ISBN13 && this.isbn
+        .length() == ISBN10))) {
+      errors.add(new ValidationError("isbn", "ISBN requires a length of 10 or 13."));
     }
     
-    if (!((this.isbn.length() != ISBN10 && this.isbn.length() == ISBN13) 
-       || (this.isbn.length() != ISBN13 && this.isbn.length() == ISBN10))) {
-      errors.add(new ValidationError("isbn", "ISBN requires a length of 10 or 13."));      
+    if (isISBN13Valid(this.isbn)) {
+      errors.add(new ValidationError("isbn", "The ISBN \"" + this.isbn + "\" is not valid."));      
     }
-    
+
     if (TextbookDB.doesIsbnExist(this.isbn) && !isEditing) {
       errors.add(new ValidationError("isbn", "ISBN '" + this.isbn + "' already exists."));
     }
-    
+
     if (this.condition == null || this.condition.length() == 0) {
       errors.add(new ValidationError("condition", "Condition is required."));
     }
-    
+
     return errors.isEmpty() ? null : errors;
   }
-  
+
   /**
    * Check if a String consists of only numbers.
+   * 
    * @param input The String to check.
    * @return True if the String is all numbers, false otherwise.
    */
@@ -117,4 +128,22 @@ public class TextbookFormData {
     return this.isbn.matches("[0-9]+");
   }
   
+  /**
+   * Check if a ISBN is valid.
+   * @param isbn The ISBN to check.
+   * @return True if it is valid, false otherwise.
+   */
+  private static boolean isISBN13Valid(String isbn) {
+    int check = 0;
+    int strLength = ISBN13 - 1;
+    for (int i = 0; i < strLength; i += 2) {
+      check += Integer.valueOf(isbn.substring(i, i + 1));
+    }
+    for (int i = 1; i < strLength; i += 2) {
+      check += Integer.valueOf(isbn.substring(i, i + 1)) * THREE;
+    }
+    check += Integer.valueOf(isbn.substring(strLength));
+    return check % TEN == ZERO;
+  }
+
 }
