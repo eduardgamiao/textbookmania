@@ -236,6 +236,9 @@ public class Application extends Controller {
    * @return The Matches page.
    */
   public static Result postMatches() {
+    Form<MatchesFormData> formData = Form.form(MatchesFormData.class).bindFromRequest();
+    MatchesFormData data = formData.get();
+    System.out.println(data.studentEmail);
     return TODO;
   }
 }
