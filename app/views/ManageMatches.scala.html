@@ -1,5 +1,9 @@
 @(matchesForm: Form[views.formdata.MatchesFormData],
-  studentNames: Map[String, Boolean])
+  studentNames: Map[String, Boolean], 
+  student: String,
+  studentEmail: String,
+  buyOffers: List[BuyOffer], 
+  sellOffers: List[SellOffer])
   
  @import helper._
  @import bootstrap3._
@@ -18,5 +22,30 @@
      <button type="submit" class="btn btn-default col-sm-offset-2 col-sm-2">Find Matches</button>
      }
      </div>
+   </div>
+   
+      <div class="container"> 
+    @if(StudentDB.getStudent(studentEmail) != null || studentEmail == "" || studentEmail == null) {
+      <h2>Matches for @student</h2>
+      <table class="table table-bordered">
+        <tr>
+          <th>Name</th>
+          <th>Book</th>
+          <th>Price</th>
+          <th>Expiration Date</th>
+        </tr>
+      @for(buyOffer <- buyOffers) {
+        <tr>
+          <td>@buyOffer.getStudentName()</td>
+          <td>@buyOffer.getTextbookName()</td>
+          <td>@buyOffer.getPrice()</td>
+          <td>@buyOffer.getExpirationDate()</td>
+        </tr>
+      }    
+      </table>
+    } else {
+      <p>Invalid Email.<span class="label label-danger">Danger</span></p>
+    }
+    
    </div>
 }

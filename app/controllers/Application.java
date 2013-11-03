@@ -274,7 +274,9 @@ public class Application extends Controller {
     MatchesFormData data = new MatchesFormData();
     Form<MatchesFormData> formData = Form.form(MatchesFormData.class).fill(data);
     Map<String, Boolean> studentMap = StudentDB.getStudentNames();
-    return ok(ManageMatches.render(formData, studentMap));
+    List<BuyOffer> buyOffers = BuyOfferDB.getBuyOffers();
+    List<SellOffer> sellOffers = SellOfferDB.getSellOffers();
+    return ok(ManageMatches.render(formData, studentMap, "", "", buyOffers, sellOffers));
   }
 
   /**
@@ -286,14 +288,17 @@ public class Application extends Controller {
     Form<MatchesFormData> formData = Form.form(MatchesFormData.class).bindFromRequest();
     if (formData.hasErrors()) {
       Map<String, Boolean> studentMap = StudentDB.getStudentNames();
-      return badRequest(ManageMatches.render(formData, studentMap));
+      List<BuyOffer> buyOffers = BuyOfferDB.getBuyOffers();
+      List<SellOffer> sellOffers = SellOfferDB.getSellOffers();
+      return badRequest(ManageMatches.render(formData, studentMap, "", "", buyOffers, sellOffers));
     }
     else {
       MatchesFormData data = formData.get();
+      Map<String, Boolean> studentMap = StudentDB.getStudentNames();
       List<BuyOffer> buyOffers = BuyOfferDB.getBuyOffers();
       List<SellOffer> sellOffers = SellOfferDB.getSellOffers();
       String email = data.studentEmail.substring(data.studentEmail.indexOf('(') + 1, data.studentEmail.indexOf(')'));
-      return ok(Matches.render(data.studentEmail, email, buyOffers, sellOffers));
+      return ok(ManageMatches.render(formData, studentMap, data.studentEmail, email, buyOffers, sellOffers));
     }
   }
 }
