@@ -51,34 +51,9 @@ public class Application extends Controller {
   public static Result showStudents() {
     return ok(Students.render(StudentDB.getStudents()));
   }
-
-  /**
-   * Returns the show textbooks page.
-   * 
-   * @return The show textbooks page.
-   */
-  public static Result showTextbooks() {
-    return ok(Textbooks.render(TextbookDB.getTextbooks()));
-  }
-
-  /**
-   * Returns the showBuyOffers page.
-   * 
-   * @return The showBuyOffers page.
-   */
-  public static Result showBuyOffers() {
-    return ok(BuyOffers.render(BuyOfferDB.getBuyOffers()));
-  }
-
-  /**
-   * Returns the showSellOffers page.
-   * 
-   * @return The showSellOffers page.
-   */
-  public static Result showSellOffers() {
-    return ok(SellOffers.render(SellOfferDB.getSellOffers()));
-  }
-
+  
+  /** STUDENTS **/
+  
   /**
    * The Student data form page.
    * 
@@ -88,6 +63,53 @@ public class Application extends Controller {
     StudentFormData data = new StudentFormData();
     Form<StudentFormData> formData = Form.form(StudentFormData.class).fill(data);
     return ok(ManageStudent.render("Add New Surfer", formData, false));
+  }
+  
+  /**
+   * Renders page for editing a Student.
+   * 
+   * @param email Email of the Student to edit.
+   * @return The Student form.
+   */
+  public static Result manageStudent(String email) {
+    if (StudentDB.isEmailTaken(email)) {
+      StudentFormData data = new StudentFormData(StudentDB.getStudent(email));
+      Form<StudentFormData> formData = Form.form(StudentFormData.class).fill(data);
+      return ok(ManageStudent.render("Manage Student", formData, true));
+    }
+    else {
+      return badRequest(Index.render("nope.avi"));
+    }
+  }
+  
+  /**
+   * Renders page after submitting form data.
+   * 
+   * @return The Student page.
+   */
+  public static Result postStudent() {
+    Form<StudentFormData> formData = Form.form(StudentFormData.class).bindFromRequest();
+    if (formData.hasErrors()) {
+      return badRequest(ManageStudent.render("Manage Student", formData, false));
+    }
+    else {
+      StudentFormData form = formData.get();
+      StudentDB.addStudent(form);
+      return ok(Students.render(StudentDB.getStudents()));
+    }
+  }
+
+  
+  
+  /** TEXTBOOKS **/
+  
+  /**
+   * Returns the show textbooks page.
+   * 
+   * @return The show textbooks page.
+   */
+  public static Result showTextbooks() {
+    return ok(Textbooks.render(TextbookDB.getTextbooks()));
   }
 
   /**
@@ -100,6 +122,50 @@ public class Application extends Controller {
     Form<TextbookFormData> formData = Form.form(TextbookFormData.class).fill(data);
     List<String> conditions = TextbookCondtion.getCondition();
     return ok(ManageTextbook.render("Add New Textbook", formData, conditions, false));
+  }
+  
+  /**
+   * Renders page for editing a Textbook.
+   * 
+   * @param isbn ISBN of textbook to edit.
+   * @return The Textbook form.
+   */
+  public static Result manageTextbook(String isbn) {
+    TextbookFormData data = new TextbookFormData(TextbookDB.getTextbook(isbn));
+    Form<TextbookFormData> formData = Form.form(TextbookFormData.class).fill(data);
+    List<String> conditions = TextbookCondtion.getCondition();
+    return ok(ManageTextbook.render("Manage Textbook", formData, conditions, true));
+  }
+  
+  /**
+   * Renders page after submitting form data.
+   * 
+   * @return The Textbook page.
+   */
+  public static Result postTextbook() {
+    Form<TextbookFormData> formData = Form.form(TextbookFormData.class).bindFromRequest();
+    List<String> conditions = TextbookCondtion.getCondition();
+    if (formData.hasErrors()) {
+      return badRequest(ManageTextbook.render("Manage Textbook", formData, conditions, false));
+    }
+    else {
+      TextbookFormData form = formData.get();
+      TextbookDB.addTextbook(form);
+      return ok(Textbooks.render(TextbookDB.getTextbooks()));
+    }
+  }
+
+  
+  
+  /** BUY OFFER **/
+  
+  /**
+   * Returns the showBuyOffers page.
+   * 
+   * @return The showBuyOffers page.
+   */
+  public static Result showBuyOffers() {
+    return ok(BuyOffers.render(BuyOfferDB.getBuyOffers()));
   }
 
   /**
@@ -165,13 +231,27 @@ public class Application extends Controller {
     BuyOfferDB.deleteBuyOffer(id);
     return ok(BuyOffers.render(BuyOfferDB.getBuyOffers()));
   }
+  
+  
+  
+  /** SELL OFFER **/
+  
+  /**
+   * Returns the showSellOffers page.
+   * 
+   * @return The showSellOffers page.
+   */
+  public static Result showSellOffers() {
+    return ok(SellOffers.render(SellOfferDB.getSellOffers()));
+  }
 
   /**
    * Render form for creating a new SellOffer.
    * 
+   * @param id The ID.
    * @return The SellOffer data page.
    */
-  public static Result newSellOffer() {
+  public static Result newSellOffer(long id) {
     SellOfferFormData data = new SellOfferFormData();
     Form<SellOfferFormData> formData = Form.form(SellOfferFormData.class).fill(data);
     Map<String, Boolean> studentMap = StudentDB.getStudentNames();
@@ -229,71 +309,10 @@ public class Application extends Controller {
     return ok(SellOffers.render(SellOfferDB.getSellOffers()));
   }
 
-  /**
-   * Renders page after submitting form data.
-   * 
-   * @return The Student page.
-   */
-  public static Result postStudent() {
-    Form<StudentFormData> formData = Form.form(StudentFormData.class).bindFromRequest();
-    if (formData.hasErrors()) {
-      return badRequest(ManageStudent.render("Manage Student", formData, false));
-    }
-    else {
-      StudentFormData form = formData.get();
-      StudentDB.addStudent(form);
-      return ok(Students.render(StudentDB.getStudents()));
-    }
-  }
-
-  /**
-   * Renders page for editing a Student.
-   * 
-   * @param email Email of the Student to edit.
-   * @return The Student form.
-   */
-  public static Result manageStudent(String email) {
-    if (StudentDB.isEmailTaken(email)) {
-      StudentFormData data = new StudentFormData(StudentDB.getStudent(email));
-      Form<StudentFormData> formData = Form.form(StudentFormData.class).fill(data);
-      return ok(ManageStudent.render("Manage Student", formData, true));
-    }
-    else {
-      return badRequest(Index.render("nope.avi"));
-    }
-  }
-
-  /**
-   * Renders page after submitting form data.
-   * 
-   * @return The Textbook page.
-   */
-  public static Result postTextbook() {
-    Form<TextbookFormData> formData = Form.form(TextbookFormData.class).bindFromRequest();
-    List<String> conditions = TextbookCondtion.getCondition();
-    if (formData.hasErrors()) {
-      return badRequest(ManageTextbook.render("Manage Textbook", formData, conditions, false));
-    }
-    else {
-      TextbookFormData form = formData.get();
-      TextbookDB.addTextbook(form);
-      return ok(Textbooks.render(TextbookDB.getTextbooks()));
-    }
-  }
-
-  /**
-   * Renders page for editing a Textbook.
-   * 
-   * @param isbn ISBN of textbook to edit.
-   * @return The Textbook form.
-   */
-  public static Result manageTextbook(String isbn) {
-    TextbookFormData data = new TextbookFormData(TextbookDB.getTextbook(isbn));
-    Form<TextbookFormData> formData = Form.form(TextbookFormData.class).fill(data);
-    List<String> conditions = TextbookCondtion.getCondition();
-    return ok(ManageTextbook.render("Manage Textbook", formData, conditions, true));
-  }
-
+  
+  
+  /** MATCHES **/
+  
   /**
    * Renders the Matches form.
    * 
