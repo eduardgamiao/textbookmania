@@ -25,7 +25,7 @@
    </div>
    
       <div class="container"> 
-    @if(StudentDB.getStudent(studentEmail) != null) {
+    @if(StudentDB.getStudent(studentEmail) != null || studentEmail == "" || studentEmail == null) {
       <h2>Matches for @student</h2>
       <table class="table table-bordered">
         <tr>
