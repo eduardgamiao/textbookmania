@@ -178,7 +178,27 @@ public class Application extends Controller {
     Map<String, Boolean> bookMap = TextbookDB.getTextbookNames();
     return ok(ManageSellOffer.render("Add New Sell-Offer", formData, studentMap, bookMap));
   }
-
+  
+  /**
+   * Manages a existing SellOffer of given ID.
+   * 
+   * @param id The ID.
+   * @return The SellOffer data page.
+   */
+  public static Result manageSellOffer(long id) {
+    //System.out.println("Entering Manage: " + id);
+    if (SellOfferDB.getSellOffer(id) != null) {
+      SellOfferFormData data = new SellOfferFormData(SellOfferDB.getSellOffer(id));
+      Form<SellOfferFormData> formData = Form.form(SellOfferFormData.class).fill(data);
+      Map<String, Boolean> studentMap = StudentDB.getStudentNames(data.student);
+      Map<String, Boolean> bookMap = TextbookDB.getTextbookNames(data.textbook);
+      return ok(ManageSellOffer.render("Add New Sell-Offer", formData, studentMap, bookMap));
+    }
+    else {
+      return badRequest(SellOffers.render(SellOfferDB.getSellOffers()));
+    }
+  }
+  
   /**
    * Renders page after submitting form data.
    * 
@@ -194,10 +214,19 @@ public class Application extends Controller {
     else {
       SellOfferFormData form = formData.get();
       SellOfferDB.addSellOffer(form);
-      // Map<String, Boolean> studentMap = StudentDB.getStudentNames(form.student);
-      // Map<String, Boolean> bookMap = TextbookDB.getTextbookNames();
       return ok(SellOffers.render(SellOfferDB.getSellOffers()));
     }
+  }
+  
+  /**
+   * Deletes a SellOffer from the database.
+   * 
+   * @param id The ID.
+   * @return The SellOffers page.
+   */
+  public static Result deleteSellOffer(long id) {
+    SellOfferDB.deleteSellOffer(id);
+    return ok(SellOffers.render(SellOfferDB.getSellOffers()));
   }
 
   /**

@@ -32,6 +32,9 @@ private static final Integer PRICE_FLOOR = 0;
   /** Expiration date of the offer. */
   public String expirationDate = "9999/12/31 23:59:59";
   
+  /** THe ID field. */
+  public long id = 0;
+  
   /**
    * Blank constructor.
    */
@@ -45,12 +48,16 @@ private static final Integer PRICE_FLOOR = 0;
    * @param textbook Textbook of interest.
    * @param price Price of Textbook.
    * @param date Date the offer expires.
+   * @param id The ID.
    */
-  public SellOfferFormData(String student, String textbook, Integer price, String date) {
+  public SellOfferFormData(String student, String textbook, Integer price, String date, long id) {
     this.student = student;
     this.textbook = textbook;
-    this.price = price;
+    if (isDateFormatted(date)) {
+      this.price = price;
+    }
     this.expirationDate = date;
+    this.id = id;
   }
   
   /**
@@ -60,8 +67,11 @@ private static final Integer PRICE_FLOOR = 0;
   public SellOfferFormData(SellOffer offer) {
     this.student = offer.getStudent();
     this.textbook = offer.getTextbook();
-    this.price = offer.getPrice();
+    if (isDateFormatted(offer.getExpirationDate())) {
+      this.price = offer.getPrice();
+    }
     this.expirationDate = offer.getExpirationDate();
+    this.id = offer.getId();
   }
 
   /**

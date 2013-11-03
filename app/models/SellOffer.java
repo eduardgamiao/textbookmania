@@ -15,6 +15,8 @@ public class SellOffer {
   private Integer price;
   /** The expiration date. */
   private String expirationDate;
+  /** The ID. */
+  private long id;
   
   /**
    * Constructor for SellOffer.
@@ -22,12 +24,14 @@ public class SellOffer {
    * @param textbook THe Textbook that is being sold.
    * @param price The selling price of Textbook.
    * @param expirationDate The expiration date of the offer.
+   * @param id The ID.
    */
-  public SellOffer(String student, String textbook, Integer price, String expirationDate) {
+  public SellOffer(String student, String textbook, Integer price, String expirationDate, long id) {
     this.student = student;
     this.textbook = textbook;
     this.price = price;
     this.expirationDate = expirationDate;
+    this.id = id;
   }
   
   /**
@@ -77,6 +81,20 @@ public class SellOffer {
    */
   public void setExpirationDate(String expirationDate) {
     this.expirationDate = expirationDate;
+  }
+
+  /**
+   * @return the id
+   */
+  public long getId() {
+    return id;
+  }
+
+  /**
+   * @param id the id to set
+   */
+  public void setId(long id) {
+    this.id = id;
   }
   
 }

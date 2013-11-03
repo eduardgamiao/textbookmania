@@ -1,7 +1,9 @@
 package models;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import views.formdata.SellOfferFormData;
 
 /**
@@ -11,7 +13,7 @@ import views.formdata.SellOfferFormData;
  */
 public class SellOfferDB {
 
-  private static List<SellOffer> sellOffers = new ArrayList<SellOffer>();
+  private static Map<Long, SellOffer> sellOffers = new HashMap<>();
   
   /**
    * Add a SellOffer to the database.
@@ -19,9 +21,20 @@ public class SellOfferDB {
    * @return THe SellOffer
    */
   public static SellOffer addSellOffer(SellOfferFormData formData) {
-    SellOffer offer = new SellOffer(formData.student, formData.textbook, formData.price, formData.expirationDate);
-    sellOffers.add(offer);
-    return offer;
+    SellOffer offer;
+    if (formData.id == 0) {
+      //System.out.println("There!");
+      long id = sellOffers.size() + 1;
+      offer = new SellOffer(formData.student, formData.textbook, formData.price, formData.expirationDate, id);
+      sellOffers.put(id, offer);
+      return offer;
+    }
+    else {
+      //System.out.println("Here!");
+      offer = new SellOffer(formData.student, formData.textbook, formData.price, formData.expirationDate, formData.id);
+      sellOffers.put(offer.getId(), offer);
+      return offer;      
+    }
   }
   
   /**
@@ -29,7 +42,28 @@ public class SellOfferDB {
    * @return A list of SellOffers.
    */
   public static List<SellOffer> getSellOffers() {
-    return sellOffers;
+    return new ArrayList<>(sellOffers.values());
+  }
+  
+  /**
+   * Returns a SellOffer associated with the passed in ID.
+   * @param id The ID.
+   * @return The retrieved SellOffer.
+   */
+  public static SellOffer getSellOffer(long id) {
+    SellOffer offer = sellOffers.get(id);
+    if (offer == null) {
+      throw new RuntimeException("Passed a bad id: " + id);
+    }
+    return offer;
+  }
+  
+  /**
+   * Deletes a SellOffer of the passed in ID.
+   * @param id The ID.
+   */
+  public static void deleteSellOffer(long id) {
+    sellOffers.remove(id);
   }
   
   /**

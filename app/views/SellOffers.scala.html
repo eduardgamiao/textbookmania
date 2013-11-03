@@ -17,6 +17,9 @@
           <td>@sellOffer.getTextbook()</td>
           <td>@sellOffer.getPrice()</td>
           <td>@sellOffer.getExpirationDate()</td>
+          <td><a href="@routes.Application.manageSellOffer(sellOffer.getId())"><button class="btn">Edit</button></a></td>
+          <td><a href="@routes.Application.deleteSellOffer(sellOffer.getId())"><button class="btn">Delete</button></a></td>
+          <td>@sellOffer.getId()</td>
         </tr>
       }
      </table>

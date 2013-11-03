@@ -10,7 +10,9 @@
 <div class="container">
   <div class="well">
   @form(routes.Application.postSellOffer(), 'class -> "form-horizontal") {
-
+  
+  @hiddenid(sellOfferForm("id"))
+  
   <!-- Student -->
   @bootstrap3.select(sellOfferForm("student"),
           label = "Students",
