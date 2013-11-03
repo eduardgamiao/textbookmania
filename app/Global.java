@@ -76,6 +76,10 @@ public class Global extends GlobalSettings {
     
     TextbookDB.addTextbook(new TextbookFormData("Operating System Concepts [Loose Leaf]", 
         "Abraham Silberschatz, Peter B. Galvin, Greg Gagne", "1118129385", "Excellent"));
+    
+    // Add Buy Offers.
+    
+    // Add Sell Offers.
   }
 
 }

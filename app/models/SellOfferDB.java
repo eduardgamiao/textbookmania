@@ -44,6 +44,22 @@ public class SellOfferDB {
   public static List<SellOffer> getSellOffers() {
     return new ArrayList<>(sellOffers.values());
   }
+
+  /**
+   * Returns a list of SellOffers that match a book.
+   * @param book Book to be matched.
+   * @return A list of SellOffers.
+   */
+  public static List<SellOffer> getSellOffers(String book) {
+    List<SellOffer> offer = new ArrayList<SellOffer>();
+    List<SellOffer> allOffers = new ArrayList<>(sellOffers.values());
+    for (SellOffer currentOffer : allOffers) {
+      if (currentOffer.getTextbook().equals(book)) {
+        offer.add(currentOffer);
+      }
+    }
+    return offer;
+  }
   
   /**
    * Returns a SellOffer associated with the passed in ID.
