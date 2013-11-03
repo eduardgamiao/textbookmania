@@ -69,6 +69,7 @@ public class TextbookFormData {
    * @return A list of errors (if they exist), otherwise null.
    */
   public List<ValidationError> validate() {
+    System.out.println(this.isbn.length());
     List<ValidationError> errors = new ArrayList<ValidationError>();
     
     if (this.title == null || this.title.length() == 0) {
@@ -87,8 +88,13 @@ public class TextbookFormData {
       errors.add(new ValidationError("isbn", "ISBN is required."));
     }
     
-    if (this.isbn.length() != ISBN10 || this.isbn.length() != ISBN13) {
-      errors.add(new ValidationError("isbn", "ISBN needs to be 10 or 13 numbers long."));      
+    if (!isNumeric(this.isbn)) {
+      errors.add(new ValidationError("isbn", "ISBN needs consists of numbers only."));         
+    }
+    
+    if (!((this.isbn.length() != ISBN10 && this.isbn.length() == ISBN13) 
+       || (this.isbn.length() != ISBN13 && this.isbn.length() == ISBN10))) {
+      errors.add(new ValidationError("isbn", "ISBN requires a length of 10 or 13."));      
     }
     
     if (TextbookDB.doesIsbnExist(this.isbn) && !isEditing) {
@@ -100,6 +106,15 @@ public class TextbookFormData {
     }
     
     return errors.isEmpty() ? null : errors;
+  }
+  
+  /**
+   * Check if a String consists of only numbers.
+   * @param input The String to check.
+   * @return True if the String is all numbers, false otherwise.
+   */
+  private boolean isNumeric(String input) {
+    return this.isbn.matches("[0-9]+");
   }
   
 }
