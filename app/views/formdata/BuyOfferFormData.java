@@ -45,6 +45,7 @@ public class BuyOfferFormData {
    * @param textbook Textbook of interest.
    * @param price Price of Textbook.
    * @param date Date the offer expires.
+   * @param id ID of the BuyOffer.
    */
   public BuyOfferFormData(String student, String textbook, Integer price, String date, long id) {
     this.student = student;

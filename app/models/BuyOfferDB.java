@@ -63,6 +63,7 @@ public class BuyOfferDB {
   public static void deleteBuyOffer(long id) {
     buyOffers.remove(id);
   }
+  
   /**
    * Check if a number is an Integer.
    * @param price Integer to check (comes in as a String).
