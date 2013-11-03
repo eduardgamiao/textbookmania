@@ -13,10 +13,7 @@ import models.TextbookDB;
  * @author Alvin Wang
  * 
  */
-public class TextbookFormData {
-  private static final Integer ISBN10 = 10;
-  private static final Integer ISBN13 = 13;
-  
+public class TextbookFormData {  
   /** The textbook's title. */
   public String title = "";
   /** The textbook's author. */
@@ -90,15 +87,6 @@ public class TextbookFormData {
     if (this.isbn == null || this.isbn.length() == 0) {
       errors.add(new ValidationError("isbn", "ISBN is required."));
     }
-
-    if (!isNumeric(this.isbn)) {
-      errors.add(new ValidationError("isbn", "ISBN needs consists of numbers only."));
-    }
-
-    if (!((this.isbn.length() != ISBN10 && this.isbn.length() == ISBN13) || (this.isbn.length() != ISBN13 && this.isbn
-        .length() == ISBN10))) {
-      errors.add(new ValidationError("isbn", "ISBN requires a length of 10 or 13."));
-    }
     
     if (!isISBNValid(this.isbn)) {
       errors.add(new ValidationError("isbn", "The ISBN \"" + this.isbn + "\" is not valid."));      
@@ -113,16 +101,6 @@ public class TextbookFormData {
     }
 
     return errors.isEmpty() ? null : errors;
-  }
-
-  /**
-   * Check if a String consists of only numbers.
-   * 
-   * @param input The String to check.
-   * @return True if the String is all numbers, false otherwise.
-   */
-  private boolean isNumeric(String input) {
-    return this.isbn.matches("[0-9]+");
   }
 
   /**
