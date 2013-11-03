@@ -77,7 +77,7 @@ public class StudentFormData {
     if (this.email == null || this.email.length() == 0) {
       errors.add(new ValidationError("email", "Email is required."));
     }
-    if (StudentDB.isEmailTaken(this.email) && isEditing) {
+    if (StudentDB.isEmailTaken(this.email) && !isEditing) {
       errors.add(new ValidationError("email", "The email \"" + this.email + "\" is already taken."));
     }
     if (!(StudentDB.isEmailValid(this.email))) {
