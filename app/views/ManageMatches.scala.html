@@ -3,7 +3,8 @@
   student: String,
   studentEmail: String,
   buyOffers: List[BuyOffer], 
-  sellOffers: List[SellOffer])
+  sellOffers: List[SellOffer],
+  matchedOffers: List[SellOffer])
   
  @import helper._
  @import bootstrap3._
@@ -53,6 +54,24 @@
           <th>Expiration Date</th>
         </tr>
       @for(sellOffer <- sellOffers) {
+        <tr>
+          <td>@sellOffer.getStudent()</td>
+          <td>@sellOffer.getTextbook()</td>
+          <td>@sellOffer.getPrice()</td>
+          <td>@sellOffer.getExpirationDate()</td>
+        </tr>
+      }    
+      </table>
+      
+      <h2>Matched Offers for Buy Offers of @student</h2>
+      <table class="table table-bordered">
+        <tr>
+          <th>Name</th>
+          <th>Book</th>
+          <th>Price</th>
+          <th>Expiration Date</th>
+        </tr>
+      @for(sellOffer <- matchedOffers) {
         <tr>
           <td>@sellOffer.getStudent()</td>
           <td>@sellOffer.getTextbook()</td>

@@ -79,6 +79,20 @@ public class SellOfferDB {
   }
   
   /**
+   * Returns a list of SellOffers that matches the Student's BuyOffers.
+   * @param student The Student.
+   * @return The list of SellOffers that match a Student's BuyOffers.
+   */
+  public static List<SellOffer> getMatchedSellOffers(String student) {
+    List<BuyOffer> studentBuyOffers = BuyOfferDB.getBuyOffersByStudent(student);
+    List<SellOffer> matchedSellOffers = new ArrayList<SellOffer>();
+    for (BuyOffer buyOffer : studentBuyOffers) {
+      matchedSellOffers.addAll(SellOfferDB.getSellOffersByBook(buyOffer.getTextbookName()));
+    }
+    return matchedSellOffers;
+  }
+  
+  /**
    * Returns a SellOffer associated with the passed in ID.
    * @param id The ID.
    * @return The retrieved SellOffer.
