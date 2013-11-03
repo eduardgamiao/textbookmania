@@ -19,10 +19,18 @@ public class BuyOfferDB {
    * @return The BuyOffer.
    */
   public static BuyOffer addBuyOffer(BuyOfferFormData formData) {
-    long idVal = (formData.id == 0) ? buyOffers.size() + 1 : formData.id;
-    BuyOffer offer = new BuyOffer(formData.student, formData.textbook, formData.price, formData.expirationDate, idVal);
-    buyOffers.put(idVal, offer);
-    return offer;
+    BuyOffer offer;
+    if (formData.id == 0) {
+      long id = buyOffers.size() + 1;
+      offer = new BuyOffer(formData.student, formData.textbook, formData.price, formData.expirationDate, id);
+      buyOffers.put(id, offer);
+      return offer;
+    }
+    else {
+      offer = new BuyOffer(formData.student, formData.textbook, formData.price, formData.expirationDate, formData.id);
+      buyOffers.put(offer.getId(), offer);
+      return offer;      
+    }
   }
   
   /**
