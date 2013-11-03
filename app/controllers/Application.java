@@ -11,6 +11,7 @@ import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.formdata.BuyOfferFormData;
+import views.formdata.MatchesFormData;
 import views.formdata.SellOfferFormData;
 import views.formdata.StudentFormData;
 import views.formdata.TextbookCondtion;
@@ -217,9 +218,24 @@ public class Application extends Controller {
     return ok(ManageTextbook.render("Manage Textbook", formData, conditions, true));
   }
   
+  
+  /**
+   * Renders the Matches form.
+   * @return The Matches form.
+   */
   public static Result matches() {
+    MatchesFormData data = new MatchesFormData();
+    Form<MatchesFormData> formData = Form.form(MatchesFormData.class).fill(data);
     Map<String, Boolean> studentMap = StudentDB.getStudentNames();
     List<BuyOffer> buyOffers = BuyOfferDB.getBuyOffers();
-    return ok(Matches.render(studentMap, buyOffers));
+    return ok(Matches.render(formData, studentMap, buyOffers));
+  }
+  
+  /**
+   * Renders the Matches page.
+   * @return The Matches page.
+   */
+  public static Result postMatches() {
+    return TODO;
   }
 }

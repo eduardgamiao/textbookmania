@@ -7,6 +7,7 @@
   
 @Main("Matches") {
    <div class="container">
+    <div class="row">
      @form(routes.Application.postMatches(), 'class -> "form-horizontal") {
      
      <!-- Student Name -->
@@ -15,7 +16,8 @@
           optionMap = studentNames,
           isMultiple = false,
           help = "")
-     <a class="btn btn-primary btn-lg pull-left" href="@routes.Application.postMatches()">Find Matches</a>
+  <button type="submit" class="btn btn-default col-sm-offset-2 col-sm-2">Find Matches</button>
      }
+     </div>
    </div>
 }
