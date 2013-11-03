@@ -5,7 +5,6 @@ import java.util.Map;
 import models.BuyOffer;
 import models.BuyOfferDB;
 import models.SellOfferDB;
-import models.Student;
 import models.StudentDB;
 import models.TextbookDB;
 import play.data.Form;
@@ -229,7 +228,6 @@ public class Application extends Controller {
     MatchesFormData data = new MatchesFormData();
     Form<MatchesFormData> formData = Form.form(MatchesFormData.class).fill(data);
     Map<String, Boolean> studentMap = StudentDB.getStudentNames();
-    List<BuyOffer> buyOffers = BuyOfferDB.getBuyOffers();
     return ok(ManageMatches.render(formData, studentMap));
   }
   
@@ -239,8 +237,15 @@ public class Application extends Controller {
    */
   public static Result postMatches() {
     Form<MatchesFormData> formData = Form.form(MatchesFormData.class).bindFromRequest();
-    MatchesFormData data = formData.get();
-    System.out.println(data.studentEmail);
-    return ok(Matches.render(data.studentEmail));
+    if (formData.hasErrors()) {
+      Map<String, Boolean> studentMap = StudentDB.getStudentNames();
+      return badRequest(ManageMatches.render(formData, studentMap));
+    }
+    else {
+      MatchesFormData data = formData.get();
+      List<BuyOffer> buyOffers = BuyOfferDB.getBuyOffers();
+      String email = data.studentEmail.substring(data.studentEmail.indexOf('(') + 1, data.studentEmail.indexOf(')'));
+      return ok(Matches.render(email, buyOffers));
+    }
   }
 }

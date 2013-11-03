@@ -1,7 +1,13 @@
-@(student: String)
+@(student: String,
+  buyOffers: List[BuyOffer])
 
 @Main("Matches for @student") {
    <div class="container">
-    <p>@student</p>
+    @if(StudentDB.getStudent(student).getEmail() != null) {
+      <span class="label label-success">Success</span>
+    } else {
+      <span class="label label-danger">Danger</span>
+    }
+    
    </div>
 }

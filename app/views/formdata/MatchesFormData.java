@@ -41,9 +41,12 @@ public class MatchesFormData {
    * Validation method for the StudentDataForm.
    * @return A List of errors (if they exist), otherwise null.
    */
-  public List<ValidationError> validate() {    
+  public List<ValidationError> validate() {
     List<ValidationError> errors = new ArrayList<ValidationError>();
     
+    if (this.studentEmail == "" || this.studentEmail == null) {
+      errors.add(new ValidationError("studentEmail", "Please choose a Student from the list."));
+    }
     if (StudentDB.isEmailTaken(this.studentEmail)) {
       errors.add(new ValidationError("studentEmail", "The Student does not exist."));
     }
