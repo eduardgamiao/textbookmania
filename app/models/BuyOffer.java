@@ -9,6 +9,7 @@ public class BuyOffer {
   private String textbookName;
   private Integer price;
   private String expirationDate;
+  private long id;
   
   /**
    * Constructor.
@@ -16,12 +17,14 @@ public class BuyOffer {
    * @param textbook The Textbook that is wanted to buy.
    * @param price The price of the text book.
    * @param expirationDate The expiration date of the offer.
+   * @param id The ID field.
    */
-  public BuyOffer(String studentName, String textbook, Integer price, String expirationDate) {
+  public BuyOffer(String studentName, String textbook, Integer price, String expirationDate, long id) {
     this.setStudentName(studentName);
     this.setTextbookName(textbook);
     this.setPrice(price);
     this.setExpirationDate(expirationDate);
+    this.setId(id);
   }
 
   /**
@@ -78,5 +81,19 @@ public class BuyOffer {
    */
   public void setExpirationDate(String expirationDate) {
     this.expirationDate = expirationDate;
+  }
+
+  /**
+   * @return the id
+   */
+  public long getId() {
+    return id;
+  }
+
+  /**
+   * @param id the id to set
+   */
+  public void setId(long id) {
+    this.id = id;
   }
 }

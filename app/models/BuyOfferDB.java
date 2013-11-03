@@ -1,7 +1,9 @@
 package models;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import views.formdata.BuyOfferFormData;
 
 /**
@@ -9,7 +11,7 @@ import views.formdata.BuyOfferFormData;
  */
 public class BuyOfferDB {
   
-  private static List<BuyOffer> buyOffers = new ArrayList<BuyOffer>();
+  private static Map<Long, BuyOffer> buyOffers = new HashMap<>();
   
   /**
    * Add a BuyOffer to the database.
@@ -17,8 +19,9 @@ public class BuyOfferDB {
    * @return The BuyOffer.
    */
   public static BuyOffer addBuyOffer(BuyOfferFormData formData) {
-    BuyOffer offer = new BuyOffer(formData.student, formData.textbook, formData.price, formData.expirationDate);
-    buyOffers.add(offer);
+    long idVal = (formData.id == 0) ? buyOffers.size() + 1 : formData.id;
+    BuyOffer offer = new BuyOffer(formData.student, formData.textbook, formData.price, formData.expirationDate, idVal);
+    buyOffers.put(idVal, offer);
     return offer;
   }
   
@@ -27,7 +30,20 @@ public class BuyOfferDB {
    * @return A list of BuyOffers.
    */
   public static List<BuyOffer> getBuyOffers() {
-    return buyOffers;
+    return new ArrayList<>(buyOffers.values());
+  }
+  
+  /**
+   * Returns a BuyOffer associated with the passed in ID.
+   * @param id The ID.
+   * @return The retrieved BuyOffer.
+   */
+  public static BuyOffer getBuyOffer(long id) {
+    BuyOffer offer = buyOffers.get(id);
+    if (offer == null) {
+      throw new RuntimeException("Passed a bad id: " + id);
+    }
+    return offer;
   }
   
   /**

@@ -29,6 +29,9 @@ public class BuyOfferFormData {
   /** Expiration date of the offer. */
   public String expirationDate = "9999/12/31 23:59:59";
   
+  /** THe ID field. */
+  public long id;
+  
   /**
    * Blank constructor.
    */
@@ -63,6 +66,7 @@ public class BuyOfferFormData {
       this.price = offer.getPrice();
     }
     this.expirationDate = offer.getExpirationDate();
+    this.id = offer.getId();
   }
 
   /**

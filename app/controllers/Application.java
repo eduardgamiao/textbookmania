@@ -98,10 +98,11 @@ public class Application extends Controller {
   
   /**
    * Render form for creating a new BuyOffer.
+   * @param id The ID.
    * @return The BuyOffer data page.
    */
-  public static Result newBuyOffer() {
-    BuyOfferFormData data = new BuyOfferFormData();
+  public static Result newBuyOffer(long id) {
+    BuyOfferFormData data = (id == 0) ? new BuyOfferFormData() : new BuyOfferFormData(BuyOfferDB.getBuyOffer(id));
     Form<BuyOfferFormData> formData = Form.form(BuyOfferFormData.class).fill(data);
     Map<String, Boolean> studentMap = StudentDB.getStudentNames();
     Map<String, Boolean> bookMap = TextbookDB.getTextbookNames();
@@ -246,7 +247,8 @@ public class Application extends Controller {
       MatchesFormData data = formData.get();
       List<BuyOffer> buyOffers = BuyOfferDB.getBuyOffers();
       List<SellOffer> sellOffers = SellOfferDB.getSellOffers();
-      String email = data.studentEmail.substring(data.studentEmail.indexOf('(') + 1, data.studentEmail.indexOf(')'));     
+      String email = data.studentEmail.substring(data.studentEmail.indexOf('(') + 1, 
+          data.studentEmail.indexOf(')'));     
       return ok(Matches.render(data.studentEmail, email, buyOffers, sellOffers));
     }
   }
