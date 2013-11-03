@@ -142,6 +142,16 @@ public class Application extends Controller {
   }
   
   /**
+   * Deletes a BuyOffer from the database.
+   * @param id The ID.
+   * @return The BuyOffers page.
+   */
+  public static Result deleteBuyOffer(long id) {
+    BuyOfferDB.deleteBuyOffer(id);
+    return ok(BuyOffers.render(BuyOfferDB.getBuyOffers()));
+  }
+  
+  /**
    * Render form for creating a new SellOffer.
    * @return The SellOffer data page.
    */

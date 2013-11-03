@@ -47,6 +47,13 @@ public class BuyOfferDB {
   }
   
   /**
+   * Deletes a BuyOffer of the passed in ID.
+   * @param id The ID.
+   */
+  public static void deleteBuyOffer(long id) {
+    buyOffers.remove(id);
+  }
+  /**
    * Check if a number is an Integer.
    * @param price Integer to check (comes in as a String).
    * @return True if the number is an Integer, false otherwise.
