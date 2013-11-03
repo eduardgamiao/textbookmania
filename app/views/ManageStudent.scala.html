@@ -1,4 +1,6 @@
-@(title: String, studentForm: Form[views.formdata.StudentFormData])
+@(title: String, 
+  studentForm: Form[views.formdata.StudentFormData],
+  editing: Boolean)
 
 @import helper._ 
 @import bootstrap3._ 
@@ -21,10 +23,11 @@
     help = "")   
     
   <!-- Email -->
-  @text(studentForm("email"), 
+  @email(studentForm("email"), 
     label = "Email", 
     placeholder = "Email", 
-    help = "")       
+    help = "",
+    isEditing = editing)       
 
   <!-- Avatar URL -->
   @text(studentForm("avatarURL"), 

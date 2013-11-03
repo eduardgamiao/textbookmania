@@ -23,6 +23,9 @@ public class StudentFormData {
   /** Student's avatar URL. */
   public String avatarURL = "";
   
+  /** Determines if the Student is being edited. */
+  public boolean isEditing = false;
+  
   /**
    * Blank constructor.
    */
@@ -45,7 +48,7 @@ public class StudentFormData {
   }
   
   /**
-   * Constructor.
+   * Constructor from existing Student.
    * @param student A Student object.
    */
   public StudentFormData(Student student) {
@@ -53,6 +56,7 @@ public class StudentFormData {
     this.lastName = student.getLastName();
     this.email = student.getEmail();
     this.avatarURL = student.getAvatarURL();
+    this.isEditing = true;
   }
 
   /**
@@ -71,7 +75,7 @@ public class StudentFormData {
     if (this.email == null || this.email.length() == 0) {
       errors.add(new ValidationError("email", "Email is required."));
     }
-    if (StudentDB.isEmailTaken(this.email)) {
+    if (StudentDB.isEmailTaken(this.email) && !isEditing) {
       errors.add(new ValidationError("email", "The email \"" + this.email + "\" is already taken."));
     }
     if (!(StudentDB.isEmailValid(this.email))) {
