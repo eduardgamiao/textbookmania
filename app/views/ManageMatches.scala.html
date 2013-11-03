@@ -43,6 +43,24 @@
         </tr>
       }    
       </table>
+      <br />
+      <h2>Matches for @student</h2>
+      <table class="table table-bordered">
+        <tr>
+          <th>Name</th>
+          <th>Book</th>
+          <th>Price</th>
+          <th>Expiration Date</th>
+        </tr>
+      @for(sellOffer <- sellOffers) {
+        <tr>
+          <td>@sellOffer.getStudent()</td>
+          <td>@sellOffer.getTextbook()</td>
+          <td>@sellOffer.getPrice()</td>
+          <td>@sellOffer.getExpirationDate()</td>
+        </tr>
+      }    
+      </table>
     } else {
       <p>Invalid Email.<span class="label label-danger">Danger</span></p>
     }

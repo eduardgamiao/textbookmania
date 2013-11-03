@@ -50,7 +50,7 @@ public class SellOfferDB {
    * @param book Book to be matched.
    * @return A list of SellOffers.
    */
-  public static List<SellOffer> getSellOffers(String book) {
+  public static List<SellOffer> getSellOffersByBook(String book) {
     List<SellOffer> offer = new ArrayList<SellOffer>();
     List<SellOffer> allOffers = new ArrayList<>(sellOffers.values());
     for (SellOffer currentOffer : allOffers) {
@@ -59,6 +59,17 @@ public class SellOfferDB {
       }
     }
     return offer;
+  }
+  
+  public static List<SellOffer> getSellOffersByStudent(String student) {
+    List<SellOffer> offerForStudent = new ArrayList<SellOffer>();
+    List<SellOffer> allSellOffers = SellOfferDB.getSellOffers();
+    for (SellOffer currentOffer : allSellOffers) {
+      if (currentOffer.getStudent().equals(student)) {
+        offerForStudent.add(currentOffer);
+      }
+    }
+    return offerForStudent;
   }
   
   /**
