@@ -1,4 +1,4 @@
-@(title: String, textbookForm: Form[views.formdata.TextbookFormData], conditions: List[String])
+@(title: String, textbookForm: Form[views.formdata.TextbookFormData], conditions: List[String], editing: Boolean)
 
 @import helper._
 @import bootstrap3._
@@ -21,10 +21,11 @@
            help = "")   
      
      <!-- ISBN -->
-     @text(textbookForm("isbn"), 
-           label = "ISBN", 
-           placeholder = "ISBN", 
-           help = "")
+     @isbn(textbookForm("isbn"),
+          label = "ISBN",
+          placeholder = "ISBN",
+          help = "",
+          disabled = editing)
      
      <!-- Condition -->
      @radiobuttons(textbookForm("condition"),
@@ -37,6 +38,9 @@
            label = "Image URL", 
            placeholder = "Image URL", 
            help = "")
+     
+     @hidden(textbookForm("isEditing"),
+            value = editing)
            
      <button type="submit" class="btn btn-default col-sm-offset-2 col-sm-2">Submit</button>
      <br />

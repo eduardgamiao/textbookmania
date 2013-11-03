@@ -88,7 +88,7 @@ public class Application extends Controller {
     TextbookFormData data = new TextbookFormData();
     Form<TextbookFormData> formData = Form.form(TextbookFormData.class).fill(data);
     List<String> conditions = TextbookCondtion.getCondition();
-    return ok(ManageTextbook.render("Add New Textbook", formData, conditions));
+    return ok(ManageTextbook.render("Add New Textbook", formData, conditions, false));
   }
   
   /**
@@ -191,12 +191,12 @@ public class Application extends Controller {
     Form<TextbookFormData> formData = Form.form(TextbookFormData.class).bindFromRequest();
     List<String> conditions = TextbookCondtion.getCondition();
     if (formData.hasErrors()) {
-      return badRequest(ManageTextbook.render("Manage Textbook", formData, conditions));
+      return badRequest(ManageTextbook.render("Manage Textbook", formData, conditions, true));
     }
     else {
       TextbookFormData form = formData.get();
       TextbookDB.addTextbook(form);
-      return ok(ManageTextbook.render("Manage Textbook", formData, conditions));
+      return ok(ManageTextbook.render("Manage Textbook", formData, conditions, false));
     } 
   }
   
@@ -210,7 +210,7 @@ public class Application extends Controller {
       TextbookFormData data = new TextbookFormData(TextbookDB.getTextbook(isbn));
       Form<TextbookFormData> formData = Form.form(TextbookFormData.class).fill(data);
       List<String> conditions = TextbookCondtion.getCondition();
-      return ok(ManageTextbook.render("Manage Textbook", formData, conditions));
+      return ok(ManageTextbook.render("Manage Textbook", formData, conditions, true));
     }
     else {
       return badRequest(Index.render(""));

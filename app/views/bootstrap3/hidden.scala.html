@@ -1,0 +1,6 @@
+@(field:Field, value:Object = null)
+
+<input type="hidden"
+       id="@field.id"
+       name="@field.name"
+       value="@if(value != null){@value} else {@field.value}" />

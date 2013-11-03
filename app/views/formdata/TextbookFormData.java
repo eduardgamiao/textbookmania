@@ -23,6 +23,8 @@ public class TextbookFormData {
   public String condition = "";
   /** Textbook image URL. */
   public String textbookURL = "";
+  /** If Textbook page is editing. */
+  public boolean isEditing = false;
   
   /**
    * Empty constructor.
@@ -41,6 +43,7 @@ public class TextbookFormData {
     this.isbn = textbook.getIsbn();
     this.condition = textbook.getCondition();
     this.textbookURL = textbook.getTextbookURL();
+    this.isEditing = true;
   }
   
   /**
@@ -78,7 +81,7 @@ public class TextbookFormData {
       errors.add(new ValidationError("isbn", "ISBN is required."));
     }
     
-    if (TextbookDB.doesIsbnExist(this.isbn)) {
+    if (TextbookDB.doesIsbnExist(this.isbn) && !isEditing) {
       errors.add(new ValidationError("isbn", "ISBN '" + this.isbn + "' already exists."));
     }
     
