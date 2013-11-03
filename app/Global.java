@@ -22,7 +22,7 @@ public class Global extends GlobalSettings {
         + "/avatar/7435fbb221d3302b55a396cab93b2149?s=80"));
     
     StudentDB.addStudent(new StudentFormData("Alvin", "Wang", "alvinw@hawaii.edu", "https://en.gravatar.com/"
-        + "userimage/54501069/d2cf47994deac7bc9288c1cc1a17c879.png?size=200"));
+        + "userimage/54501069/d2cf47994deac7bc9288c1cc1a17c879.png"));
     
     // Add Textbooks.
     TextbookDB.addTextbook(new TextbookFormData("Introduction to Algorithms", "Thomas Cormen", 
