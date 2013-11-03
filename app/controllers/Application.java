@@ -98,14 +98,26 @@ public class Application extends Controller {
   
   /**
    * Render form for creating a new BuyOffer.
-   * @param id The ID.
    * @return The BuyOffer data page.
    */
-  public static Result newBuyOffer(long id) {
-    BuyOfferFormData data = (id == 0) ? new BuyOfferFormData() : new BuyOfferFormData(BuyOfferDB.getBuyOffer(id));
+  public static Result newBuyOffer() {
+    BuyOfferFormData data = new BuyOfferFormData();
     Form<BuyOfferFormData> formData = Form.form(BuyOfferFormData.class).fill(data);
     Map<String, Boolean> studentMap = StudentDB.getStudentNames();
     Map<String, Boolean> bookMap = TextbookDB.getTextbookNames();
+    return ok(ManageBuyOffer.render("Add New Buy-Offer", formData, studentMap, bookMap));
+  }
+  
+  /**
+   * Manages a existing BuyOffer of given ID.
+   * @param id The ID.
+   * @return The BuyOffer data page.
+   */
+  public static Result manageBuyOffer(long id) {
+    BuyOfferFormData data = new BuyOfferFormData(BuyOfferDB.getBuyOffer(id));
+    Form<BuyOfferFormData> formData = Form.form(BuyOfferFormData.class).fill(data);
+    Map<String, Boolean> studentMap = StudentDB.getStudentNames(data.student);
+    Map<String, Boolean> bookMap = TextbookDB.getTextbookNames(data.textbook);
     return ok(ManageBuyOffer.render("Add New Buy-Offer", formData, studentMap, bookMap));
   }
   
