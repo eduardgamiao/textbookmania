@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import models.BuyOffer;
 import models.BuyOfferDB;
+import models.SellOffer;
 import models.SellOfferDB;
 import models.StudentDB;
 import models.TextbookDB;
@@ -243,10 +244,10 @@ public class Application extends Controller {
     }
     else {
       MatchesFormData data = formData.get();
-      System.out.println("Validate PASSED: " + data.studentEmail);
       List<BuyOffer> buyOffers = BuyOfferDB.getBuyOffers();
-      String email = data.studentEmail.substring(data.studentEmail.indexOf('(') + 1, data.studentEmail.indexOf(')'));
-      return ok(Matches.render(email, buyOffers));
+      List<SellOffer> sellOffers = SellOfferDB.getSellOffers();
+      String email = data.studentEmail.substring(data.studentEmail.indexOf('(') + 1, data.studentEmail.indexOf(')'));     
+      return ok(Matches.render(data.studentEmail, email, buyOffers, sellOffers));
     }
   }
 }

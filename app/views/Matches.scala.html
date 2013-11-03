@@ -1,12 +1,30 @@
 @(student: String,
-  buyOffers: List[BuyOffer])
+  email: String,
+  buyOffers: List[BuyOffer], 
+  sellOffers: List[SellOffer])
 
 @Main("Matches for @student") {
-   <div class="container">
-    @if(StudentDB.getStudent(student).getEmail() != null) {
-      <span class="label label-success">Success</span>
+   <div class="container"> 
+    @if(StudentDB.getStudent(email) != null) {
+      <h2>Matches for @student</h2>
+      <table class="table table-bordered">
+        <tr>
+          <th>Name</th>
+          <th>Book</th>
+          <th>Price</th>
+          <th>Expiration Date</th>
+        </tr>
+      @for(buyOffer <- buyOffers) {
+        <tr>
+          <td>@buyOffer.getStudentName()</td>
+          <td>@buyOffer.getTextbookName()</td>
+          <td>@buyOffer.getPrice()</td>
+          <td>@buyOffer.getExpirationDate()</td>
+        </tr>
+      }    
+      </table>
     } else {
-      <span class="label label-danger">Danger</span>
+      <p>Invalid Email.<span class="label label-danger">Danger</span></p>
     }
     
    </div>
