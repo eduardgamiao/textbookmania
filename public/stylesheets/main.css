@@ -1,5 +1,4 @@
 body {
-  text-align: center;
 }
 
 .navbar {
@@ -9,6 +8,10 @@ body {
 .student-img {
   height: 100px;
   width: 100px;
+}
+
+.index-container {
+  text-align: center;
 }
 
 .index-section-1 h1 {
