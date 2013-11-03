@@ -119,9 +119,9 @@ public class Application extends Controller {
     else {
       BuyOfferFormData form = formData.get();
       BuyOfferDB.addBuyOffer(form);
-      Map<String, Boolean> studentMap = StudentDB.getStudentNames(form.student);
-      Map<String, Boolean> bookMap = TextbookDB.getTextbookNames(form.textbook);
-      return ok(ManageBuyOffer.render("Manage Student", formData, studentMap, bookMap));
+      //Map<String, Boolean> studentMap = StudentDB.getStudentNames(form.student);
+      //Map<String, Boolean> bookMap = TextbookDB.getTextbookNames(form.textbook);
+      return ok(BuyOffers.render(BuyOfferDB.getBuyOffers()));
     } 
   }
   
@@ -133,7 +133,8 @@ public class Application extends Controller {
     SellOfferFormData data = new SellOfferFormData();
     Form<SellOfferFormData> formData = Form.form(SellOfferFormData.class).fill(data);
     Map<String, Boolean> studentMap = StudentDB.getStudentNames();
-    return ok(ManageSellOffer.render("Add New Sell-Offer", formData, studentMap));
+    Map<String, Boolean> bookMap = TextbookDB.getTextbookNames();
+    return ok(ManageSellOffer.render("Add New Sell-Offer", formData, studentMap, bookMap));
   }
   
   /**
@@ -144,13 +145,15 @@ public class Application extends Controller {
     Form<SellOfferFormData> formData = Form.form(SellOfferFormData.class).bindFromRequest();
     if (formData.hasErrors()) {
       Map<String, Boolean> studentMap = StudentDB.getStudentNames();
-      return badRequest(ManageSellOffer.render("Manage Sell-Offer", formData, studentMap));
+      Map<String, Boolean> bookMap = TextbookDB.getTextbookNames();
+      return badRequest(ManageSellOffer.render("Manage Sell-Offer", formData, studentMap, bookMap));
     }
     else {
       SellOfferFormData form = formData.get();
       SellOfferDB.addSellOffer(form);
-      Map<String, Boolean> studentMap = StudentDB.getStudentNames(form.student.getEmail());
-      return ok(ManageSellOffer.render("Manage Sell-Offer", formData, studentMap));
+     // Map<String, Boolean> studentMap = StudentDB.getStudentNames(form.student);
+     // Map<String, Boolean> bookMap = TextbookDB.getTextbookNames();
+      return ok(SellOffers.render(SellOfferDB.getSellOffers()));
     } 
   }
   /**

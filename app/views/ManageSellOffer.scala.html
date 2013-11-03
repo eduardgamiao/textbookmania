@@ -1,6 +1,7 @@
 @(title: String, 
   sellOfferForm: Form[views.formdata.SellOfferFormData],
-  studentNames: Map[String, Boolean])
+  studentNames: Map[String, Boolean],
+  bookNames: Map[String, Boolean])
 
 @import helper._ 
 @import bootstrap3._ 
@@ -16,6 +17,25 @@
           optionMap = studentNames,
           isMultiple = false,
           help = "")
+  
+  <!-- Textbook -->
+  @bootstrap3.select(sellOfferForm("textbook"),
+          label = "Textbook",
+          optionMap = bookNames,
+          isMultiple = false,
+          help = "")
+          
+ <!-- Price -->
+  @text(sellOfferForm("price"), 
+    label = "Price", 
+    placeholder = "$0", 
+    help = "")
+
+ <!-- Date -->
+  @text(sellOfferForm("expirationDate"), 
+    label = "Expiration Date", 
+    placeholder = "Format", 
+    help = "")
           
   <button type="submit" class="btn btn-default col-sm-offset-2 col-sm-2">Submit</button>
   <br />
