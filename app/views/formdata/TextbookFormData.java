@@ -14,6 +14,8 @@ import models.TextbookDB;
  * 
  */
 public class TextbookFormData {  
+  private static final Integer ISBN_LENGTH = 10;
+  
   /** The textbook's title. */
   public String title = "";
   /** The textbook's author. */
@@ -88,12 +90,12 @@ public class TextbookFormData {
       errors.add(new ValidationError("isbn", "ISBN is required."));
     }
     
-    if (isISBN10(this.isbn)) {
-      errors.add(new ValidationError("isbn", "ISBN is must be of ISBN-10 format."));      
+    if (this.isbn.length() != ISBN_LENGTH) {
+      errors.add(new ValidationError("isbn", "The ISBN needs to be 10-digits long."));
     }
     
-    if (!isISBNValid(this.isbn)) {
-      errors.add(new ValidationError("isbn", "The ISBN \"" + this.isbn + "\" is not valid."));      
+    if (!isISBN10(this.isbn)) {
+      errors.add(new ValidationError("isbn", "ISBN-10 is not valid.."));      
     }
 
     if (TextbookDB.doesIsbnExist(this.isbn) && !isEditing) {
@@ -115,16 +117,6 @@ public class TextbookFormData {
   public static boolean isISBN10(String isbn) {
     ISBNValidator validator = new ISBNValidator();
     return validator.isValidISBN10(isbn);
-  }
-
-  /**
-   * Check if a ISBN is valid.
-   * @param isbn The ISBN to check.
-   * @return True if it is valid, false otherwise.
-   */
-  private static boolean isISBNValid(String isbn) {
-    ISBNValidator validator = new ISBNValidator();
-    return validator.isValid(isbn);
   }
  }
 
