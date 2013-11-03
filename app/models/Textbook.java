@@ -8,8 +8,7 @@ import org.apache.commons.validator.routines.ISBNValidator;
  *
  */
 public class Textbook {  
-  private static final Integer THREE = 3; // For CheckStyle.
-  private static final Integer TEN = 10; // For CheckStyle.
+  private static final int TEN = 10;
   private String title;
   private String author;
   private String isbn;
@@ -28,7 +27,9 @@ public class Textbook {
     this.author = author;
     this.isbn = isbn;
     this.condition = condition;
-    this.textbookURL = createURL(this.isbn);
+    if (isbn.length() == TEN) {
+      this.textbookURL = createURL(this.isbn);
+    }
   }
 
   /**
@@ -107,11 +108,13 @@ public class Textbook {
    * @return A URL of the image for the book.
    */
   public static String createURL(String productCode) {
-    if (productCode.length() == 13) {
-      System.out.println(productCode);
-      System.out.println(new ISBNValidator().convertToISBN13(productCode.substring(3, productCode.length())));
+    ISBNValidator validator = new ISBNValidator();
+    if (validator.isValidISBN10(productCode)) {
+      return "http://images.amazon.com/images/P/" + productCode + ".01._PE20_SCMZZZZZZZ_.jpg";
     }
-    return "http://images.amazon.com/images/P/" + productCode + ".01._PE20_SCMZZZZZZZ_.jpg";
+    else {
+      throw new RuntimeException("Invalid ISBN.");
+    }
   }
   
   /**

@@ -88,6 +88,10 @@ public class TextbookFormData {
       errors.add(new ValidationError("isbn", "ISBN is required."));
     }
     
+    if (isISBN10(this.isbn)) {
+      errors.add(new ValidationError("isbn", "ISBN is must be of ISBN-10 format."));      
+    }
+    
     if (!isISBNValid(this.isbn)) {
       errors.add(new ValidationError("isbn", "The ISBN \"" + this.isbn + "\" is not valid."));      
     }
@@ -102,10 +106,19 @@ public class TextbookFormData {
 
     return errors.isEmpty() ? null : errors;
   }
+  
+  /**
+   * Checks if the ISBN is valid. Must be of ISBN-10 format.
+   * @param isbn ISBN to check.
+   * @return True if valid, false otherwise.
+   */
+  public static boolean isISBN10(String isbn) {
+    ISBNValidator validator = new ISBNValidator();
+    return validator.isValidISBN10(isbn);
+  }
 
   /**
    * Check if a ISBN is valid.
-   * 
    * @param isbn The ISBN to check.
    * @return True if it is valid, false otherwise.
    */
