@@ -39,7 +39,7 @@
         </tr>
       @for(buyOffer <- buyOffers) {
         <tr>
-          <td><img class="student-img" src=""></td>
+          <td><img class="student-img" src="@StudentDB.getStudent(BuyOfferDB.extractEmail(buyOffer)).getAvatarURL()"></td>
           <td>@buyOffer.getStudentName()</td>
           <td>@buyOffer.getTextbookName()</td>
           <td>@buyOffer.getPrice()</td>
@@ -59,7 +59,7 @@
         </tr>
       @for(buyOffer <- matchedForSellOffers) {
         <tr>
-          <td><img class="student-img" src=""></td>
+          <td><img class="student-img" src="@StudentDB.getStudent(SellOfferDB.extractEmail(buyOffer)).getAvatarURL()"></td>
           <td>@buyOffer.getStudent()</td>
           <td>@buyOffer.getTextbook()</td>
           <td>@buyOffer.getPrice()</td>
@@ -79,7 +79,7 @@
         </tr>
       @for(sellOffer <- sellOffers) {
         <tr>
-          <td><img class="student-img" src=""></td>
+          <td><img class="student-img" src="@StudentDB.getStudent(SellOfferDB.extractEmail(sellOffer)).getAvatarURL()"></td>
           <td>@sellOffer.getStudent()</td>
           <td>@sellOffer.getTextbook()</td>
           <td>@sellOffer.getPrice()</td>
@@ -97,13 +97,13 @@
           <th>Price</th>
           <th>Expiration Date</th>
         </tr>
-      @for(sellOffer <- matchedForBuyOffers) {
+      @for(buyOffer <- matchedForBuyOffers) {
         <tr>
-          <td><img class="student-img" src=""></td>
-          <td>@sellOffer.getStudentName()</td>
-          <td>@sellOffer.getTextbookName()</td>
-          <td>@sellOffer.getPrice()</td>
-          <td>@sellOffer.getExpirationDate()</td>
+          <td><img class="student-img" src="@StudentDB.getStudent(BuyOfferDB.extractEmail(buyOffer)).getAvatarURL()"></td>
+          <td>@buyOffer.getStudentName()</td>
+          <td>@buyOffer.getTextbookName()</td>
+          <td>@buyOffer.getPrice()</td>
+          <td>@buyOffer.getExpirationDate()</td>
         </tr>
       }    
       </table>
