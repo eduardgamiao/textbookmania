@@ -13,7 +13,7 @@
       </tr>
       @for(buyOffer <- buyOffers) {
         <tr>
-          <td>@if(!buyOffer.isNotExpired()) {<label class="label label-danger">Expired</label>} @buyOffer.getStudentName()</td>
+          <td>@if(!buyOffer.isNotExpired()) {<label class="label label-danger"><i>Expired</i></label>} @buyOffer.getStudentName()</td>
           <td>@buyOffer.getTextbookName()</td>
           <td>@buyOffer.getPrice()</td>
           <td>@buyOffer.getExpirationDate()</td>
