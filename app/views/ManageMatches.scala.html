@@ -28,7 +28,7 @@
    
       <div class="container"> 
     @if(StudentDB.getStudent(studentEmail) != null) {
-      <h2>Buy Offers for @student</h2>
+      <h2>Buy Offers <span class="badge">@buyOffers.size()</span></h2>
       <table class="table table-bordered">
         <tr>
           <th>Name</th>
@@ -45,8 +45,26 @@
         </tr>
       }    
       </table>
+            <br />                  
+      <h2>Potential Sellers <span class="badge">@matchedForSellOffers.size()</span></h2>
+      <table class="table table-bordered">
+        <tr>
+          <th>Name</th>
+          <th>Book</th>
+          <th>Price</th>
+          <th>Expiration Date</th>
+        </tr>
+      @for(buyOffer <- matchedForSellOffers) {
+        <tr>
+          <td>@buyOffer.getStudent()</td>
+          <td>@buyOffer.getTextbook()</td>
+          <td>@buyOffer.getPrice()</td>
+          <td>@buyOffer.getExpirationDate()</td>
+        </tr>
+      }    
+      </table>
       <br />
-      <h2>Sell Offers for @student</h2>
+      <h2>Sell Offers <span class="badge">@sellOffers.size()</span></h2>
       <table class="table table-bordered">
         <tr>
           <th>Name</th>
@@ -64,7 +82,7 @@
       }    
       </table>
       <br />      
-      <h2>Matched Offers to Sell for Buy Offers of @student</h2>
+      <h2>Potential Buyers <span class="badge">@matchedForBuyOffers.size()</span></h2>
       <table class="table table-bordered">
         <tr>
           <th>Name</th>
@@ -78,24 +96,6 @@
           <td>@sellOffer.getTextbookName()</td>
           <td>@sellOffer.getPrice()</td>
           <td>@sellOffer.getExpirationDate()</td>
-        </tr>
-      }    
-      </table>
-      <br />                  
-      <h2>Matched Offers to Buy of @student</h2>
-      <table class="table table-bordered">
-        <tr>
-          <th>Name</th>
-          <th>Book</th>
-          <th>Price</th>
-          <th>Expiration Date</th>
-        </tr>
-      @for(buyOffer <- matchedForSellOffers) {
-        <tr>
-          <td>@buyOffer.getStudent()</td>
-          <td>@buyOffer.getTextbook()</td>
-          <td>@buyOffer.getPrice()</td>
-          <td>@buyOffer.getExpirationDate()</td>
         </tr>
       }    
       </table>
