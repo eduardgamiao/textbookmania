@@ -117,6 +117,13 @@ public class Global extends GlobalSettings {
     id++;
     BuyOfferDB.addBuyOffer(new BuyOfferFormData(student, textbook, price, date, id));
     
+    student = "Eduard Gamiao (eduard@hawaii.edu)";
+    textbook = "The Design of Everyday Things";
+    price = 43;
+    date = "2013/11/01 23:59:59";
+    id++;
+    BuyOfferDB.addBuyOffer(new BuyOfferFormData(student, textbook, price, date, id));
+    
     // Add Sell Offers.
     student = "Alvin Wang (alvinw@hawaii.edu)";
     textbook = "Emotional Design: Why We Love (or Hate) Everyday Things";
@@ -143,6 +150,13 @@ public class Global extends GlobalSettings {
     textbook = "Operating System Concepts [Loose Leaf]";
     price = 60;
     date = "2015/01/01 23:59:59";
+    id++;
+    SellOfferDB.addSellOffer(new SellOfferFormData(student, textbook, price, date, id));
+    
+    student = "Eduard Gamiao (eduard@hawaii.edu)";
+    textbook = "Land of Lisp: Learn to Program in Lisp, One Game at a Time!";
+    price = 58;
+    date = "2013/11/01 23:59:59";
     id++;
     SellOfferDB.addSellOffer(new SellOfferFormData(student, textbook, price, date, id));
   }
