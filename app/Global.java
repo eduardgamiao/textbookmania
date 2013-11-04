@@ -1,3 +1,4 @@
+import java.util.Random;
 import models.BuyOfferDB;
 import models.SellOfferDB;
 import models.StudentDB;
@@ -16,6 +17,8 @@ import views.formdata.TextbookFormData;
  * 
  */
 public class Global extends GlobalSettings {
+  private static final int MIN = 1;
+  private static final int MAX = 200;
 
   /**
    * Initialization method for this Play Framework web application.
@@ -84,42 +87,42 @@ public class Global extends GlobalSettings {
     // Add Buy Offers.
     String student = "Alvin Wang (alvinw@hawaii.edu)";
     String textbook = "Operating System Concepts [Loose Leaf]";
-    Integer price = 50;
+    Integer price = randomPrice();
     String date = "2014/12/31 23:59:59";
     long id = 1;
     BuyOfferDB.addBuyOffer(new BuyOfferFormData(student, textbook, price, date, id));
     
     student = "Alvin Wang (alvinw@hawaii.edu)";
     textbook = "Artifical Intelligence for Games";
-    price = 72;
+    price = randomPrice();
     date = "2015/01/11 12:00:00";
     id++;
     BuyOfferDB.addBuyOffer(new BuyOfferFormData(student, textbook, price, date, id));
     
     student = "Eduard Gamiao (eduard@hawaii.edu)";
     textbook = "Programming Language Pragmatics";
-    price = 54;
+    price = randomPrice();
     date = "2014/12/20 22:05:00";
     id++;
     BuyOfferDB.addBuyOffer(new BuyOfferFormData(student, textbook, price, date, id));
     
     student = "Alvin Wang (alvinw@hawaii.edu)";
     textbook = "Introduction to Algorithms";
-    price = 100;
+    price = randomPrice();
     date = "2015/05/15 23:00:00";
     id++;
     BuyOfferDB.addBuyOffer(new BuyOfferFormData(student, textbook, price, date, id));
     
     student = "Eduard Gamiao (eduard@hawaii.edu)";
     textbook = "Data Structures: Abstraction and Design Using Java";
-    price = 30;
+    price = randomPrice();
     date = "2014/11/18 23:59:59";
     id++;
     BuyOfferDB.addBuyOffer(new BuyOfferFormData(student, textbook, price, date, id));
     
     student = "Eduard Gamiao (eduard@hawaii.edu)";
     textbook = "The Design of Everyday Things";
-    price = 43;
+    price = randomPrice();
     date = "2013/11/01 23:59:59";
     id++;
     BuyOfferDB.addBuyOffer(new BuyOfferFormData(student, textbook, price, date, id));
@@ -127,38 +130,49 @@ public class Global extends GlobalSettings {
     // Add Sell Offers.
     student = "Alvin Wang (alvinw@hawaii.edu)";
     textbook = "Emotional Design: Why We Love (or Hate) Everyday Things";
-    price = 20;
+    price = randomPrice();
     date = "2015/01/01 23:59:59";
     id = 1;
     SellOfferDB.addSellOffer(new SellOfferFormData(student, textbook, price, date, id));
     
     student = "Alvin Wang (alvinw@hawaii.edu)";
     textbook = "Data Structures: Abstraction and Design Using Java";
-    price = 77;
+    price = randomPrice();
     date = "2015/01/01 23:59:59";
     id++;
     SellOfferDB.addSellOffer(new SellOfferFormData(student, textbook, price, date, id));
     
     student = "Eduard Gamiao (eduard@hawaii.edu)";
     textbook = "Database Systems: The Complete Book";
-    price = 44;
+    price = randomPrice();
     date = "2015/12/01 23:59:59";
     id++;
     SellOfferDB.addSellOffer(new SellOfferFormData(student, textbook, price, date, id));
     
     student = "Eduard Gamiao (eduard@hawaii.edu)";
     textbook = "Operating System Concepts [Loose Leaf]";
-    price = 60;
+    price = randomPrice();
     date = "2015/01/01 23:59:59";
     id++;
     SellOfferDB.addSellOffer(new SellOfferFormData(student, textbook, price, date, id));
     
     student = "Eduard Gamiao (eduard@hawaii.edu)";
     textbook = "Land of Lisp: Learn to Program in Lisp, One Game at a Time!";
-    price = 58;
+    price = randomPrice();
     date = "2013/11/01 23:59:59";
     id++;
     SellOfferDB.addSellOffer(new SellOfferFormData(student, textbook, price, date, id));
+  }
+  
+  /**
+   * Returns a Random price betwwen 1 and 200.
+   * 
+   * @return random price.
+   */
+  public int randomPrice() {
+    Random rand = new Random();
+    
+    return rand.nextInt((MAX - MIN) + 1) + MIN;
   }
 
 }
