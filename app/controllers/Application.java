@@ -375,7 +375,8 @@ public class Application extends Controller {
       List<SellOffer> sellOffers = SellOfferDB.getSellOffersByStudent(data.studentEmail);
       List<SellOffer> matchedOffers = SellOfferDB.getMatchedSellOffers(data.studentEmail);
       String email = data.studentEmail.substring(data.studentEmail.indexOf('(') + 1, data.studentEmail.indexOf(')'));
-      return ok(ManageMatches.render(formData, studentMap, data.studentEmail, email, buyOffers, sellOffers, matchedOffers));
+      return ok(ManageMatches.render(formData, studentMap, 
+          data.studentEmail, email, buyOffers, sellOffers, matchedOffers));
     }
   }
 }

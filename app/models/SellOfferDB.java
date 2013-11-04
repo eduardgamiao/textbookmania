@@ -1,7 +1,10 @@
 package models;
 
+import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -50,12 +53,17 @@ public class SellOfferDB {
    * Returns a list of SellOffers that match a book.
    * @param book Book to be matched.
    * @return A list of SellOffers.
+   * @throws ParseException Thrown when date is an invalid format.
    */
-  public static List<SellOffer> getSellOffersByBook(String book) {
+  public static List<SellOffer> getSellOffersByBook(String book) throws ParseException {
+    DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+    Date currentDate = null;
     List<SellOffer> offer = new ArrayList<SellOffer>();
     List<SellOffer> allOffers = new ArrayList<>(sellOffers.values());
     for (SellOffer currentOffer : allOffers) {
-      if (currentOffer.getTextbook().equals(book)) {
+      currentDate = new Date();
+      Date expirationDate = dateFormat.parse(currentOffer.getExpirationDate());
+      if (currentOffer.getTextbook().equals(book)  && currentDate.before(expirationDate)) {
         offer.add(currentOffer);
       }
     }
@@ -67,12 +75,17 @@ public class SellOfferDB {
    * 
    * @param student The Student.
    * @return The list of SellOffers from student.
+   * @throws ParseException Thrown when date is an invalid format.
    */
-  public static List<SellOffer> getSellOffersByStudent(String student) {
+  public static List<SellOffer> getSellOffersByStudent(String student) throws ParseException {
+    DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+    Date currentDate = null;
     List<SellOffer> offerForStudent = new ArrayList<SellOffer>();
     List<SellOffer> allSellOffers = SellOfferDB.getSellOffers();
     for (SellOffer currentOffer : allSellOffers) {
-      if (currentOffer.getStudent().equals(student)) {
+      currentDate = new Date();
+      Date expirationDate = dateFormat.parse(currentOffer.getExpirationDate());
+      if (currentOffer.getStudent().equals(student)  && currentDate.before(expirationDate)) {
         offerForStudent.add(currentOffer);
       }
     }
