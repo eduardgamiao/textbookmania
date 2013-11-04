@@ -1,5 +1,6 @@
 package controllers;
 
+import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
 import models.BuyOffer;
@@ -218,7 +219,6 @@ public class Application extends Controller {
    * @return The BuyOffer data page.
    */
   public static Result manageBuyOffer(long id) {
-    System.out.println("Entering Manage: " + id);
     if (BuyOfferDB.getBuyOffer(id) != null) {
       BuyOfferFormData data = new BuyOfferFormData(BuyOfferDB.getBuyOffer(id));
       Form<BuyOfferFormData> formData = Form.form(BuyOfferFormData.class).fill(data);
@@ -245,7 +245,6 @@ public class Application extends Controller {
     }
     else {
       BuyOfferFormData form = formData.get();
-      System.out.println("From PBO: " +  form.id);
       BuyOfferDB.addBuyOffer(form);
       return ok(BuyOffers.render(BuyOfferDB.getBuyOffers()));
     }
@@ -296,7 +295,6 @@ public class Application extends Controller {
    * @return The SellOffer data page.
    */
   public static Result manageSellOffer(long id) {
-    //System.out.println("Entering Manage: " + id);
     if (SellOfferDB.getSellOffer(id) != null) {
       SellOfferFormData data = new SellOfferFormData(SellOfferDB.getSellOffer(id));
       Form<SellOfferFormData> formData = Form.form(SellOfferFormData.class).fill(data);
@@ -359,10 +357,10 @@ public class Application extends Controller {
 
   /**
    * Renders the Matches page.
-   * 
    * @return The Matches page.
+   * @throws ParseException Thrown when invalid date format.
    */
-  public static Result postMatches() {
+  public static Result postMatches() throws ParseException {
     Form<MatchesFormData> formData = Form.form(MatchesFormData.class).bindFromRequest();
     if (formData.hasErrors()) {
       Map<String, Boolean> studentMap = StudentDB.getStudentNames();

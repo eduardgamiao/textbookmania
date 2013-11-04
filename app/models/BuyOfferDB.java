@@ -1,6 +1,10 @@
 package models;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -61,12 +65,17 @@ public class BuyOfferDB {
    * 
    * @param student The Student.
    * @return The list of BuyOffers from student.
+   * @throws ParseException Thrown when date is not in valid format.
    */
-  public static List<BuyOffer> getBuyOffersByStudent(String student) {
+  public static List<BuyOffer> getBuyOffersByStudent(String student) throws ParseException {
+    DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+    Date currentDate = null;
     List<BuyOffer> offerForStudent = new ArrayList<BuyOffer>();
     List<BuyOffer> allBuyOffers = BuyOfferDB.getBuyOffers();
     for (BuyOffer currentOffer : allBuyOffers) {
-      if (currentOffer.getStudentName().equals(student)) {
+      currentDate = new Date();
+      Date expirationDate = dateFormat.parse(currentOffer.getExpirationDate());
+      if (currentOffer.getStudentName().equals(student) && currentDate.before(expirationDate)) {
         offerForStudent.add(currentOffer);
       }
     }

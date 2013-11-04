@@ -1,5 +1,6 @@
 package models;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -82,8 +83,9 @@ public class SellOfferDB {
    * Returns a list of SellOffers that matches the Student's BuyOffers.
    * @param student The Student.
    * @return The list of SellOffers that match a Student's BuyOffers.
+   * @throws ParseException Thrown when date is not a valid format.
    */
-  public static List<SellOffer> getMatchedSellOffers(String student) {
+  public static List<SellOffer> getMatchedSellOffers(String student) throws ParseException {
     List<BuyOffer> studentBuyOffers = BuyOfferDB.getBuyOffersByStudent(student);
     List<SellOffer> matchedSellOffers = new ArrayList<SellOffer>();
     for (BuyOffer buyOffer : studentBuyOffers) {
