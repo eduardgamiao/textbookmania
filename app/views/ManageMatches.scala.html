@@ -1,114 +1,109 @@
-@(matchesForm: Form[views.formdata.MatchesFormData],
-  studentNames: Map[String, Boolean], 
-  student: String,
-  studentEmail: String,
-  buyOffers: List[BuyOffer], 
-  sellOffers: List[SellOffer],
-  matchedForSellOffers: List[SellOffer],
-  matchedForBuyOffers: List[BuyOffer])
-  
- @import helper._
- @import bootstrap3._
-  
-@Main("Matches") {
-   <div class="container">
-    <div class="row">
-     @form(routes.Application.postMatches(), 'class -> "form-horizontal") {
-     
-     <!-- Student Name -->
-     @bootstrap3.select(matchesForm("studentEmail"),
-          label = "Choose a Student",
-          optionMap = studentNames,
-          isMultiple = false,
-          help = "")
-     <button type="submit" class="btn btn-default col-sm-offset-2 col-sm-2">Find Matches</button>
-     }
-     </div>
-   </div>
-   
-      <div class="container"> 
-    @if(StudentDB.getStudent(studentEmail) != null) {
-      <h2>Buy Offers <span class="badge">@buyOffers.size()</span></h2>
-      <table class="table table-bordered">
-        <tr>
-          <th></th>
-          <th>Name</th>
-          <th>Book</th>
-          <th>Price</th>
-          <th>Expiration Date</th>
-        </tr>
-      @for(buyOffer <- buyOffers) {
-        <tr>
-          <td><img class="student-img" src="@StudentDB.getStudent(BuyOfferDB.extractEmail(buyOffer)).getAvatarURL()"></td>
-          <td>@buyOffer.getStudentName()</td>
-          <td>@buyOffer.getTextbookName()</td>
-          <td>@buyOffer.getPrice()</td>
-          <td>@buyOffer.getExpirationDate()</td>
-        </tr>
-      }    
-      </table>
-            <br />                  
-      <h2>Potential Sellers <span class="badge">@matchedForSellOffers.size()</span></h2>
-      <table class="table table-bordered">
-        <tr>
-          <th></th>
-          <th>Name</th>
-          <th>Book</th>
-          <th>Price</th>
-          <th>Expiration Date</th>
-        </tr>
-      @for(buyOffer <- matchedForSellOffers) {
-        <tr>
-          <td><img class="student-img" src="@StudentDB.getStudent(SellOfferDB.extractEmail(buyOffer)).getAvatarURL()"></td>
-          <td>@buyOffer.getStudent()</td>
-          <td>@buyOffer.getTextbook()</td>
-          <td>@buyOffer.getPrice()</td>
-          <td>@buyOffer.getExpirationDate()</td>
-        </tr>
-      }    
-      </table>
-      <br />
-      <h2>Sell Offers <span class="badge">@sellOffers.size()</span></h2>
-      <table class="table table-bordered">
-        <tr>
-          <th></th>
-          <th>Name</th>
-          <th>Book</th>
-          <th>Price</th>
-          <th>Expiration Date</th>
-        </tr>
-      @for(sellOffer <- sellOffers) {
-        <tr>
-          <td><img class="student-img" src="@StudentDB.getStudent(SellOfferDB.extractEmail(sellOffer)).getAvatarURL()"></td>
-          <td>@sellOffer.getStudent()</td>
-          <td>@sellOffer.getTextbook()</td>
-          <td>@sellOffer.getPrice()</td>
-          <td>@sellOffer.getExpirationDate()</td>
-        </tr>
-      }    
-      </table>
-      <br />      
-      <h2>Potential Buyers <span class="badge">@matchedForBuyOffers.size()</span></h2>
-      <table class="table table-bordered">
-        <tr>
-          <th></th>
-          <th>Name</th>
-          <th>Book</th>
-          <th>Price</th>
-          <th>Expiration Date</th>
-        </tr>
-      @for(buyOffer <- matchedForBuyOffers) {
-        <tr>
-          <td><img class="student-img" src="@StudentDB.getStudent(BuyOfferDB.extractEmail(buyOffer)).getAvatarURL()"></td>
-          <td>@buyOffer.getStudentName()</td>
-          <td>@buyOffer.getTextbookName()</td>
-          <td>@buyOffer.getPrice()</td>
-          <td>@buyOffer.getExpirationDate()</td>
-        </tr>
-      }    
-      </table>
-    }   
-   </div>
-         <br />
-               <br />
+@(matchesForm: Form[views.formdata.MatchesFormData], studentNames: Map[String, Boolean], student: String, studentEmail:
+String, buyOffers: List[BuyOffer], sellOffers: List[SellOffer], matchedForSellOffers: List[SellOffer],
+matchedForBuyOffers: List[BuyOffer]) @import helper._ @import bootstrap3._ @Main("Matches") {
+<div class="container">
+  <div class="row">
+    @form(routes.Application.postMatches(), 'class -> "form-horizontal") {
+
+    <!-- Student Name -->
+    @bootstrap3.select(matchesForm("studentEmail"), label = "Choose a Student", optionMap = studentNames, isMultiple =
+    false, help = "")
+    <button type="submit" class="btn btn-default col-sm-offset-2 col-sm-2">Find Matches</button>
+    }
+  </div>
+</div>
+
+<div class="container">
+  @if(StudentDB.getStudent(studentEmail) != null) {
+  <h2>
+    Buy Offers <span class="badge">@buyOffers.size()</span>
+  </h2>
+  <table class="table table-bordered">
+    <tr>
+      <th></th>
+      <th>Name</th>
+      <th>Book</th>
+      <th>Price</th>
+      <th>Expiration Date</th>
+    </tr>
+    @for(buyOffer <- buyOffers) {
+    <tr>
+      <td><img class="student-img" src="@StudentDB.getStudent(BuyOfferDB.extractEmail(buyOffer)).getAvatarURL()"></td>
+      <td>@buyOffer.getStudentName()</td>
+      <td>@buyOffer.getTextbookName()</td>
+      <td>@buyOffer.getPrice()</td>
+      <td>@buyOffer.getExpirationDate()</td>
+    </tr>
+    }
+  </table>
+  <br />
+  <h2>
+    Potential Sellers <span class="badge">@matchedForSellOffers.size()</span>
+  </h2>
+  <table class="table table-bordered">
+    <tr>
+      <th></th>
+      <th>Name</th>
+      <th>Book</th>
+      <th>Price</th>
+      <th>Expiration Date</th>
+    </tr>
+    @for(buyOffer <- matchedForSellOffers) {
+    <tr>
+      <td><img class="student-img" src="@StudentDB.getStudent(SellOfferDB.extractEmail(buyOffer)).getAvatarURL()"></td>
+      <td>@buyOffer.getStudent()</td>
+      <td>@buyOffer.getTextbook()</td>
+      <td>@buyOffer.getPrice()</td>
+      <td>@buyOffer.getExpirationDate()</td>
+    </tr>
+    }
+  </table>
+  <br />
+  <h2>
+    Sell Offers <span class="badge">@sellOffers.size()</span>
+  </h2>
+  <table class="table table-bordered">
+    <tr>
+      <th></th>
+      <th>Name</th>
+      <th>Book</th>
+      <th>Price</th>
+      <th>Expiration Date</th>
+    </tr>
+    @for(sellOffer <- sellOffers) {
+    <tr>
+      <td><img class="student-img" src="@StudentDB.getStudent(SellOfferDB.extractEmail(sellOffer)).getAvatarURL()"></td>
+      <td>@sellOffer.getStudent()</td>
+      <td>@sellOffer.getTextbook()</td>
+      <td>@sellOffer.getPrice()</td>
+      <td>@sellOffer.getExpirationDate()</td>
+    </tr>
+    }
+  </table>
+  <br />
+  <h2>
+    Potential Buyers <span class="badge">@matchedForBuyOffers.size()</span>
+  </h2>
+  <table class="table table-bordered">
+    <tr>
+      <th></th>
+      <th>Name</th>
+      <th>Book</th>
+      <th>Price</th>
+      <th>Expiration Date</th>
+    </tr>
+    @for(buyOffer <- matchedForBuyOffers) {
+    <tr>
+      <td><img class="student-img" src="@StudentDB.getStudent(BuyOfferDB.extractEmail(buyOffer)).getAvatarURL()"></td>
+      <td>@buyOffer.getStudentName()</td>
+      <td>@buyOffer.getTextbookName()</td>
+      <td>@buyOffer.getPrice()</td>
+      <td>@buyOffer.getExpirationDate()</td>
+    </tr>
+    }
+  </table>
+  }
+</div>
+<br />
+<br />
 }
