@@ -1,9 +1,84 @@
 @(message: String) 
 
 @Main("Home") {
-<div class="container">
-  <div class="well">
-    <h1>Help</h1>
-  </div>
+<div class="help-container">
+	<h1>Help</h1>
+	<div class="col-md-12">
+	  <div class="well">
+	   <h2>Table of Contents</h2>
+	   <ul>
+	   <li><a href="#general">General Use</a></li>
+	   <li><a href="#profile">Student Profiles</a></li>
+	   <li><a href="#textbook">Textbooks</a></li>
+	   <li><a href="#marketplace">Marketplace</a></li>
+	   </ul>
+	  </div>
+		<div class="well">
+			<h2><a name="general"></a>General Use</h2>
+			<img src="@routes.Assets.at("images/navbar.png")">
+			<p>Use the interactive Nav-Bar to visit other pages of the site.</p>
+		</div>
+
+		<div class="well">
+			<h2><a name="profile"></a>Student Profiles</h2>
+			<p>After hitting the 'Students' tab in the Nav-Bar, it will take
+				you to a page that displays a table of Students currently in the
+				database.</p>
+			<br>
+			<h3>Adding a Profile</h3>
+			<p>Click the 'Add Student' button to add your own Student
+				Profile.</p>
+			<img src="@routes.Assets.at("images/addstudent-btn.PNG")"> <br>
+			<p>You will be re-directed to a new page where you can fill out
+				your details.
+			<p>
+				<img src="@routes.Assets.at("images/student-form.PNG")"> <br>
+		</div>
+
+		<div class="well">
+			<h2><a name="textbook"></a>Textbooks</h2>
+			<p>After hitting the 'Textbooks' tab in the Nav-Bar, it will take
+				you to a page that displays a table of Textbooks currently in our
+				database.</p>
+			<br>
+			<h3>Adding a Textbook</h3>
+			<p>Click the 'Add Textbook' button to add Textbook that is not in
+				our database.</p>
+			<img src="@routes.Assets.at("images/textbook-btn.PNG")"> <br>
+			<p>You will be re-directed to a new page where you can fill out
+				the textbook details.
+			<p>
+				<img src="@routes.Assets.at("images/textbook-form.PNG")"> <br>
+		</div>
+
+		<div class="well">
+			<h2><a name="marketplace"></a>Marketplace</h2>
+			<p>The 'Marketplace' tab will offer three choices: Buying,
+				Selling, and Matches.
+			<p>
+				<br>
+			<h3>Buying and Selling</h3>
+			<p>In the 'Buying' and 'Selling' pages, it will display a table
+				of Buy-Offers and Sell-offers on textbooks made by other students.</p>
+			<img src="@routes.Assets.at("images/buysell-nav.png")">
+			<h3>Add an Offer</h3>
+			<p>To add you own offer, click the 'Add Offer' button.</p>
+			<img src="@routes.Assets.at("images/addoffer-btn.PNG")">
+			<p>You will be re-directed to a new page where you can fill out
+				your offer details.</p>
+			<img src="@routes.Assets.at("images/offer-form.PNG")"> <br>
+			<h3>Matches</h3>
+			<p>The 'Matches' page will display the Buy-Offers and Sell-Offers
+				of a selected Student.
+			<p>
+				<img src="@routes.Assets.at("images/match-nav.png")">
+			<p>To find matches, select a Student in the and click 'Find
+				Matches'.</p>
+			<img src="@routes.Assets.at("images/matches-select.PNG")">
+			<p>Here is an example of what the output table might look like.</p>
+			<img src="@routes.Assets.at("images/matches-example.PNG")">
+			<p>
+		</div>
+	</div>
 </div>
 }

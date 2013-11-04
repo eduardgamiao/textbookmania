@@ -14,7 +14,7 @@ body {
   width: 100px;
 }
 
-.index-container {
+.index-container{
   text-align: center;
 }
 
@@ -29,4 +29,22 @@ body {
 
 .well-color {
   padding: 40px;
+}
+
+.help-container{
+  text-align: center;
+}
+
+.help-container h1 {
+  font-size: 60px;
+  font-weight: bold;
+}
+
+.well h2 {
+  font-size: 40px;
+  font-weight: bold;
+}
+
+.well h3 {
+  font-weight: bold;
 }
