@@ -83,6 +83,42 @@ public class BuyOfferDB {
   }
   
   /**
+   * Returns a list of BuyOffers that match a book.
+   * @param book Book to be matched.
+   * @return A list of BuyOffers.
+   * @throws ParseException Thrown when date is an invalid format.
+   */
+  public static List<BuyOffer> getBuyOffersByBook(String book) throws ParseException {
+    DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+    Date currentDate = null;
+    List<BuyOffer> offer = new ArrayList<BuyOffer>();
+    List<BuyOffer> allOffers = new ArrayList<>(buyOffers.values());
+    for (BuyOffer currentOffer : allOffers) {
+      currentDate = new Date();
+      Date expirationDate = dateFormat.parse(currentOffer.getExpirationDate());
+      if (currentOffer.getTextbookName().equals(book)  && currentDate.before(expirationDate)) {
+        offer.add(currentOffer);
+      }
+    }
+    return offer;
+  }
+  
+  /**
+   * Returns a list of BuyOffers that matches the Student's BuyOffers.
+   * @param student The Student.
+   * @return The list of BuyOffers that match a Student's BuyOffers.
+   * @throws ParseException Thrown when date is not a valid format.
+   */
+  public static List<BuyOffer> getMatchedBuyOffers(String student) throws ParseException {
+    List<SellOffer> studentSellOffers = SellOfferDB.getSellOffersByStudent(student);
+    List<BuyOffer> matchedBuyOffers = new ArrayList<BuyOffer>();
+    for (SellOffer sellOffer : studentSellOffers) {
+      matchedBuyOffers.addAll(BuyOfferDB.getBuyOffersByBook(sellOffer.getTextbook()));
+    }
+    return matchedBuyOffers;
+  }
+  
+  /**
    * Deletes a BuyOffer of the passed in ID.
    * @param id The ID.
    */
