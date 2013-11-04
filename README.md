@@ -1,4 +1,4 @@
-![screenshot](https://raw.github.com/alvinwkwang/textbookmania/Day3/doc/textbookmania-homepage.PNG)
+![screenshot](https://raw.github.com/alvinwkwang/textbookmania/Day3/doc/textbookmania-home.PNG)
 
 Overview
 ========
