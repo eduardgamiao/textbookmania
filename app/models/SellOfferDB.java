@@ -4,6 +4,8 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -104,6 +106,7 @@ public class SellOfferDB {
     for (BuyOffer buyOffer : studentBuyOffers) {
       matchedSellOffers.addAll(SellOfferDB.getSellOffersByBook(buyOffer.getTextbookName()));
     }
+    Collections.sort(matchedSellOffers, new SellPriceComparator());
     return matchedSellOffers;
   }
   
@@ -142,4 +145,25 @@ public class SellOfferDB {
       return false;
     }
   }
+}
+
+/**
+ * Class to sort ArrayList<BuyOffer> by price.
+ * @author eduardgamiao
+ *
+ */
+class SellPriceComparator implements Comparator<SellOffer> {
+
+  @Override
+  public int compare(SellOffer o1, SellOffer o2) {
+    if (o1.getPrice() < o2.getPrice()) {
+      return -1;
+    }
+    else if (o1.getPrice() > o2.getPrice()) {
+      return 1;
+    }
+    else {
+      return 0;
+    }
+  } 
 }
