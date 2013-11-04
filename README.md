@@ -16,11 +16,11 @@ Usage
 =====
 Use the navigation bar to find interior pages of Students, Textbooks, and Bull/Sell offers. 
 You are able to:
-*Add/Edit/Delete Students
-*Add/Edit/Delete Textbooks
-*Add/Edit/Delete Buying Offers
-*Add/Edit/Delete Selling Offers
-*View matches of offers on a specific Student.
+* Add/Edit/Delete Students
+* Add/Edit/Delete Textbooks
+* Add/Edit/Delete Buying Offers
+* Add/Edit/Delete Selling Offers
+* View matches of offers on a specific Student.
 
 Credits
 =======
