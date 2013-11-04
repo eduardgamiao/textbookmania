@@ -3,7 +3,7 @@
 @Main("Sell Offers") {
    <div class="container">
      <a class="btn btn-primary btn-lg pull-right" href="@routes.Application.newSellOffer(0)">Add Offer</a>
-     <h2>List of Sell Offers (@sellOffers.size())</h2>
+     <h2>List of Sell Offers <span class="badge">@sellOffers.size()</span></h2>
      <table class="table table-bordered table-stripped">
       <tr>
         <th>Seller</th>
@@ -19,7 +19,6 @@
           <td>@sellOffer.getExpirationDate()</td>
           <td><a href="@routes.Application.manageSellOffer(sellOffer.getId())"><button class="btn">Edit</button></a></td>
           <td><a href="@routes.Application.deleteSellOffer(sellOffer.getId())"><button class="btn">Delete</button></a></td>
-          <td>@sellOffer.getId()</td>
         </tr>
       }
      </table>
