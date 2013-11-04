@@ -16,11 +16,12 @@ import views.formdata.BuyOfferFormData;
  * A database of BuyOffers.
  */
 public class BuyOfferDB {
-  
+
   private static Map<Long, BuyOffer> buyOffers = new HashMap<>();
-  
+
   /**
    * Add a BuyOffer to the database.
+   * 
    * @param formData BuyOffer data from the form.
    * @return The BuyOffer.
    */
@@ -35,20 +36,22 @@ public class BuyOfferDB {
     else {
       offer = new BuyOffer(formData.student, formData.textbook, formData.price, formData.expirationDate, formData.id);
       buyOffers.put(offer.getId(), offer);
-      return offer;      
+      return offer;
     }
   }
-  
+
   /**
    * Returns a list of BuyOffers.
+   * 
    * @return A list of BuyOffers.
    */
   public static List<BuyOffer> getBuyOffers() {
     return new ArrayList<BuyOffer>(buyOffers.values());
   }
-  
+
   /**
    * Returns a BuyOffer associated with the passed in ID.
+   * 
    * @param id The ID.
    * @return The retrieved BuyOffer.
    */
@@ -59,7 +62,7 @@ public class BuyOfferDB {
     }
     return offer;
   }
-  
+
   /**
    * Returns a list of BuyOffers by a student.
    * 
@@ -81,9 +84,10 @@ public class BuyOfferDB {
     }
     return offerForStudent;
   }
-  
+
   /**
    * Returns a list of BuyOffers that match a book.
+   * 
    * @param book Book to be matched.
    * @return A list of BuyOffers.
    * @throws ParseException Thrown when date is an invalid format.
@@ -96,15 +100,16 @@ public class BuyOfferDB {
     for (BuyOffer currentOffer : allOffers) {
       currentDate = new Date();
       Date expirationDate = dateFormat.parse(currentOffer.getExpirationDate());
-      if (currentOffer.getTextbookName().equals(book)  && currentDate.before(expirationDate)) {
+      if (currentOffer.getTextbookName().equals(book) && currentDate.before(expirationDate)) {
         offer.add(currentOffer);
       }
     }
     return offer;
   }
-  
+
   /**
    * Returns a list of BuyOffers that matches the Student's BuyOffers.
+   * 
    * @param student The Student.
    * @return The list of BuyOffers that match a Student's BuyOffers.
    * @throws ParseException Thrown when date is not a valid format.
@@ -118,17 +123,19 @@ public class BuyOfferDB {
     Collections.sort(matchedBuyOffers, new BuyPriceComparator());
     return matchedBuyOffers;
   }
-  
+
   /**
    * Deletes a BuyOffer of the passed in ID.
+   * 
    * @param id The ID.
    */
   public static void deleteBuyOffer(long id) {
     buyOffers.remove(id);
   }
-  
+
   /**
    * Check if a number is an Integer.
+   * 
    * @param price Integer to check (comes in as a String).
    * @return True if the number is an Integer, false otherwise.
    */
@@ -141,12 +148,29 @@ public class BuyOfferDB {
       return false;
     }
   }
+
+  /**
+   * Return the email address of the Student.
+   * @param buyOffer The BuyOffer to extract from.
+   * @return The email of the Student.
+   */
+  public static String extractEmail(BuyOffer buyOffer) {
+    if (buyOffer.getStudentName().contains("@") && buyOffer.getStudentName().contains(".")) {
+      String[] split = buyOffer.getStudentName().split(" ");
+      if (split.length > 0) {
+        String email = split[split.length - 1];
+        return email.substring(1, email.length() - 1);
+      }
+    }
+    return "";
+  }
 }
 
 /**
  * Class to sort ArrayList<BuyOffer> by price.
+ * 
  * @author eduardgamiao
- *
+ * 
  */
 class BuyPriceComparator implements Comparator<BuyOffer> {
 
@@ -161,5 +185,5 @@ class BuyPriceComparator implements Comparator<BuyOffer> {
     else {
       return 0;
     }
-  } 
+  }
 }

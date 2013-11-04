@@ -14,37 +14,40 @@ import views.formdata.SellOfferFormData;
 
 /**
  * An Object representing a Student's want to sell a Textbook.
+ * 
  * @author Alvin Wang
- *
+ * 
  */
 public class SellOfferDB {
 
   private static Map<Long, SellOffer> sellOffers = new HashMap<>();
-  
+
   /**
    * Add a SellOffer to the database.
+   * 
    * @param formData SellOffer data from the form.
    * @return THe SellOffer
    */
   public static SellOffer addSellOffer(SellOfferFormData formData) {
     SellOffer offer;
     if (formData.id == 0) {
-      //System.out.println("There!");
+      // System.out.println("There!");
       long id = sellOffers.size() + 1;
       offer = new SellOffer(formData.student, formData.textbook, formData.price, formData.expirationDate, id);
       sellOffers.put(id, offer);
       return offer;
     }
     else {
-      //System.out.println("Here!");
+      // System.out.println("Here!");
       offer = new SellOffer(formData.student, formData.textbook, formData.price, formData.expirationDate, formData.id);
       sellOffers.put(offer.getId(), offer);
-      return offer;      
+      return offer;
     }
   }
-  
+
   /**
    * Returns a list of SellOffers.
+   * 
    * @return A list of SellOffers.
    */
   public static List<SellOffer> getSellOffers() {
@@ -53,6 +56,7 @@ public class SellOfferDB {
 
   /**
    * Returns a list of SellOffers that match a book.
+   * 
    * @param book Book to be matched.
    * @return A list of SellOffers.
    * @throws ParseException Thrown when date is an invalid format.
@@ -65,13 +69,13 @@ public class SellOfferDB {
     for (SellOffer currentOffer : allOffers) {
       currentDate = new Date();
       Date expirationDate = dateFormat.parse(currentOffer.getExpirationDate());
-      if (currentOffer.getTextbook().equals(book)  && currentDate.before(expirationDate)) {
+      if (currentOffer.getTextbook().equals(book) && currentDate.before(expirationDate)) {
         offer.add(currentOffer);
       }
     }
     return offer;
   }
-  
+
   /**
    * Returns a list of SellOffers by a student.
    * 
@@ -87,15 +91,16 @@ public class SellOfferDB {
     for (SellOffer currentOffer : allSellOffers) {
       currentDate = new Date();
       Date expirationDate = dateFormat.parse(currentOffer.getExpirationDate());
-      if (currentOffer.getStudent().equals(student)  && currentDate.before(expirationDate)) {
+      if (currentOffer.getStudent().equals(student) && currentDate.before(expirationDate)) {
         offerForStudent.add(currentOffer);
       }
     }
     return offerForStudent;
   }
-  
+
   /**
    * Returns a list of SellOffers that matches the Student's BuyOffers.
+   * 
    * @param student The Student.
    * @return The list of SellOffers that match a Student's BuyOffers.
    * @throws ParseException Thrown when date is not a valid format.
@@ -109,9 +114,10 @@ public class SellOfferDB {
     Collections.sort(matchedSellOffers, new SellPriceComparator());
     return matchedSellOffers;
   }
-  
+
   /**
    * Returns a SellOffer associated with the passed in ID.
+   * 
    * @param id The ID.
    * @return The retrieved SellOffer.
    */
@@ -122,17 +128,19 @@ public class SellOfferDB {
     }
     return offer;
   }
-  
+
   /**
    * Deletes a SellOffer of the passed in ID.
+   * 
    * @param id The ID.
    */
   public static void deleteSellOffer(long id) {
     sellOffers.remove(id);
   }
-  
+
   /**
    * Check if a number is an Integer.
+   * 
    * @param price Integer to check (comes in as a String).
    * @return True if the number is an Integer, false otherwise.
    */
@@ -145,12 +153,29 @@ public class SellOfferDB {
       return false;
     }
   }
+
+  /**
+   * Return the email address of the Student.
+   * @param sellOffer SellOffer to extract from.
+   * @return The email of the Student.
+   */
+  public static String extractEmail(SellOffer sellOffer) {
+    if (sellOffer.getStudent().contains("@") && sellOffer.getStudent().contains(".")) {
+      String[] split = sellOffer.getStudent().split(" ");
+      if (split.length > 0) {
+        String email = split[split.length - 1];
+        return email.substring(1, email.length() - 1);
+      }
+    }
+    return "";
+  }
 }
 
 /**
  * Class to sort ArrayList<BuyOffer> by price.
+ * 
  * @author eduardgamiao
- *
+ * 
  */
 class SellPriceComparator implements Comparator<SellOffer> {
 
@@ -165,5 +190,5 @@ class SellPriceComparator implements Comparator<SellOffer> {
     else {
       return 0;
     }
-  } 
+  }
 }
