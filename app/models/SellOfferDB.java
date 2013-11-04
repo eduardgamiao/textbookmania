@@ -1,12 +1,9 @@
 package models;
 
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -62,14 +59,10 @@ public class SellOfferDB {
    * @throws ParseException Thrown when date is an invalid format.
    */
   public static List<SellOffer> getSellOffersByBook(String book) throws ParseException {
-    DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-    Date currentDate = null;
     List<SellOffer> offer = new ArrayList<SellOffer>();
     List<SellOffer> allOffers = new ArrayList<>(sellOffers.values());
     for (SellOffer currentOffer : allOffers) {
-      currentDate = new Date();
-      Date expirationDate = dateFormat.parse(currentOffer.getExpirationDate());
-      if (currentOffer.getTextbook().equals(book) && currentDate.before(expirationDate)) {
+      if (currentOffer.getTextbook().equals(book) && currentOffer.isNotExpired()) {
         offer.add(currentOffer);
       }
     }
@@ -84,14 +77,10 @@ public class SellOfferDB {
    * @throws ParseException Thrown when date is an invalid format.
    */
   public static List<SellOffer> getSellOffersByStudent(String student) throws ParseException {
-    DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-    Date currentDate = null;
     List<SellOffer> offerForStudent = new ArrayList<SellOffer>();
     List<SellOffer> allSellOffers = SellOfferDB.getSellOffers();
     for (SellOffer currentOffer : allSellOffers) {
-      currentDate = new Date();
-      Date expirationDate = dateFormat.parse(currentOffer.getExpirationDate());
-      if (currentOffer.getStudent().equals(student) && currentDate.before(expirationDate)) {
+      if (currentOffer.getStudent().equals(student) && currentOffer.isNotExpired()) {
         offerForStudent.add(currentOffer);
       }
     }

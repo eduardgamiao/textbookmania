@@ -3,7 +3,7 @@
 @Main("Sell Offers") {
    <div class="container">
      <a class="btn btn-primary btn-lg pull-right" href="@routes.Application.newSellOffer(0)">Add Offer</a>
-     <h2>List of Sell Offers <span class="badge">@sellOffers.size()</span></h2>
+     <h2>Sell Offers <span class="badge">@sellOffers.size()</span></h2>
      <table class="table table-bordered table-stripped">
       <tr>
         <th>Seller</th>
@@ -13,7 +13,7 @@
       </tr>
       @for(sellOffer <- sellOffers) {
         <tr>
-          <td>@sellOffer.getStudent()</td>
+          <td>@if(!sellOffer.isNotExpired()) {<label class="label label-danger">Expired</label>} @sellOffer.getStudent()</td>
           <td>@sellOffer.getTextbook()</td>
           <td>@sellOffer.getPrice()</td>
           <td>@sellOffer.getExpirationDate()</td>

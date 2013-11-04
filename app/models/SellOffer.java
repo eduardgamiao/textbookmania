@@ -1,5 +1,10 @@
 package models;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * An Object representing a Student's want to sell a Textbook.
  * @author Alvin Wang
@@ -95,6 +100,18 @@ public class SellOffer {
    */
   public void setId(long id) {
     this.id = id;
+  }
+  
+  /**
+   * Check if the BuyOffer has expired.
+   * @return True if not expired, false otherwise. 
+   * @throws ParseException Thrown if date is invalid.
+   */
+  public boolean isNotExpired() throws ParseException {
+    DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+    Date currentDate = new Date();
+    Date expirationDate = dateFormat.parse(this.expirationDate);
+    return currentDate.before(expirationDate);
   }
   
 }
