@@ -4,7 +4,8 @@
   studentEmail: String,
   buyOffers: List[BuyOffer], 
   sellOffers: List[SellOffer],
-  matchedOffers: List[SellOffer])
+  matchedForSellOffers: List[SellOffer],
+  matchedForBuyOffers: List[BuyOffer])
   
  @import helper._
  @import bootstrap3._
@@ -63,7 +64,7 @@
       }    
       </table>
       
-      <h2>Matched Offers for Buy Offers of @student</h2>
+      <h2>Matched Offers to Sell for Buy Offers of @student</h2>
       <table class="table table-bordered">
         <tr>
           <th>Name</th>
@@ -71,12 +72,31 @@
           <th>Price</th>
           <th>Expiration Date</th>
         </tr>
-      @for(sellOffer <- matchedOffers) {
+      @for(sellOffer <- matchedForBuyOffers) {
         <tr>
-          <td>@sellOffer.getStudent()</td>
-          <td>@sellOffer.getTextbook()</td>
+          <td>@sellOffer.getStudentName()</td>
+          <td>@sellOffer.getTextbookName()</td>
           <td>@sellOffer.getPrice()</td>
           <td>@sellOffer.getExpirationDate()</td>
+        </tr>
+      }    
+      </table>
+      
+            
+      <h2>Matched Offers to Buy of @student</h2>
+      <table class="table table-bordered">
+        <tr>
+          <th>Name</th>
+          <th>Book</th>
+          <th>Price</th>
+          <th>Expiration Date</th>
+        </tr>
+      @for(buyOffer <- matchedForSellOffers) {
+        <tr>
+          <td>@buyOffer.getStudent()</td>
+          <td>@buyOffer.getTextbook()</td>
+          <td>@buyOffer.getPrice()</td>
+          <td>@buyOffer.getExpirationDate()</td>
         </tr>
       }    
       </table>

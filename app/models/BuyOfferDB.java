@@ -25,14 +25,12 @@ public class BuyOfferDB {
   public static BuyOffer addBuyOffer(BuyOfferFormData formData) {
     BuyOffer offer;
     if (formData.id == 0) {
-      System.out.println("Adding " + formData.student + " " + formData.textbook);
       long id = buyOffers.size() + 1;
       offer = new BuyOffer(formData.student, formData.textbook, formData.price, formData.expirationDate, id);
       buyOffers.put(id, offer);
       return offer;
     }
     else {
-      System.out.println("Adding " + formData.student + " " + formData.textbook);
       offer = new BuyOffer(formData.student, formData.textbook, formData.price, formData.expirationDate, formData.id);
       buyOffers.put(offer.getId(), offer);
       return offer;      
