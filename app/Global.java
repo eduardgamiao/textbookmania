@@ -82,35 +82,35 @@ public class Global extends GlobalSettings {
         "Abraham Silberschatz, Peter B. Galvin, Greg Gagne", "1118129385", "Excellent"));
     
     // Add Buy Offers.
-    String student = "Alvin Wang";
+    String student = "Alvin Wang (alvinw@hawaii.edu)";
     String textbook = "Operating System Concepts [Loose Leaf]";
     Integer price = 50;
     String date = "2014/12/31 23:59:59";
     long id = 1;
     BuyOfferDB.addBuyOffer(new BuyOfferFormData(student, textbook, price, date, id));
     
-    student = "Alvin Wang";
+    student = "Alvin Wang (alvinw@hawaii.edu)";
     textbook = "Artifical Intelligence for Games";
     price = 72;
     date = "2015/01/11 12:00:00";
     id++;
     BuyOfferDB.addBuyOffer(new BuyOfferFormData(student, textbook, price, date, id));
     
-    student = "Eduard Gamiao";
+    student = "Eduard Gamiao (eduard@hawaii.edu)";
     textbook = "Programming Language Pragmatics";
     price = 54;
     date = "2014/12/20 22:05:00";
     id++;
     BuyOfferDB.addBuyOffer(new BuyOfferFormData(student, textbook, price, date, id));
     
-    student = "Alvin Wang";
+    student = "Alvin Wang (alvinw@hawaii.edu)";
     textbook = "Introduction to Algorithms";
     price = 100;
     date = "2015/05/15 23:00:00";
     id++;
     BuyOfferDB.addBuyOffer(new BuyOfferFormData(student, textbook, price, date, id));
     
-    student = "Eduard Gamiao";
+    student = "Eduard Gamiao (eduard@hawaii.edu)";
     textbook = "Data Structures: Abstraction and Design Using Java";
     price = 30;
     date = "2014/11/18 23:59:59";
@@ -118,38 +118,31 @@ public class Global extends GlobalSettings {
     BuyOfferDB.addBuyOffer(new BuyOfferFormData(student, textbook, price, date, id));
     
     // Add Sell Offers.
-    student = "Alvin Wang";
+    student = "Alvin Wang (alvinw@hawaii.edu)";
     textbook = "Emotional Design: Why We Love (or Hate) Everyday Things";
     price = 20;
     date = "2015/01/01 23:59:59";
     id = 1;
     SellOfferDB.addSellOffer(new SellOfferFormData(student, textbook, price, date, id));
     
-    student = "Alvin Wang";
+    student = "Alvin Wang (alvinw@hawaii.edu)";
     textbook = "Data Structures: Abstraction and Design Using Java";
     price = 77;
     date = "2015/01/01 23:59:59";
     id++;
     SellOfferDB.addSellOffer(new SellOfferFormData(student, textbook, price, date, id));
     
-    student = "Eduard Gamiao";
+    student = "Eduard Gamiao (eduard@hawaii.edu)";
     textbook = "Database Systems: The Complete Book";
     price = 44;
     date = "2015/12/01 23:59:59";
     id++;
     SellOfferDB.addSellOffer(new SellOfferFormData(student, textbook, price, date, id));
     
-    student = "Eduard Gamiao";
+    student = "Eduard Gamiao (eduard@hawaii.edu)";
     textbook = "Operating System Concepts [Loose Leaf]";
     price = 60;
     date = "2015/01/01 23:59:59";
-    id++;
-    SellOfferDB.addSellOffer(new SellOfferFormData(student, textbook, price, date, id));
-    
-    student = "Eduard Gamiao";
-    textbook = "Artifical Intelligence for Games";
-    price = 20;
-    date = "2015/05/01 23:59:59";
     id++;
     SellOfferDB.addSellOffer(new SellOfferFormData(student, textbook, price, date, id));
   }
